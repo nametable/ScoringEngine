@@ -183,10 +183,18 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
-                return QString("Unused");
+                return QString("UNK");
                 break;
             }
         case 1: //RunCommand
+            switch(role)
+            {
+            case Qt::DisplayRole:
+            case Qt::EditRole:
+                return static_cast<RunCommandScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str();
+                break;
+            }
+            break;
         case 2: //ValueCheck
         case 3: //ScriptCheck
         case 4: //CompoundCheck
@@ -194,7 +202,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
-                return QString("Unused");
+                return QString("UNK");
                 break;
             }
             break;
@@ -349,7 +357,8 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
         {
         case Qt::DisplayRole:
         case Qt::EditRole:
-
+            BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
+            static_cast<RunCommandScoreChecker*>(basecheck)->setSearchString(value.toString().toStdString());
             break;
         }
         break;
