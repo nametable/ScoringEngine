@@ -189,7 +189,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
-                return QString("UNK");
+                return QString("Unused");
                 break;
             }
         case 1: //RunCommand
@@ -202,7 +202,23 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             }
             break;
         case 2: //ValueCheck
+            switch(role)
+            {
+            case Qt::DisplayRole:
+            case Qt::EditRole:
+                return static_cast<ValueScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str();
+                break;
+            }
+            break;
         case 3: //ScriptCheck
+            switch(role)
+            {
+            case Qt::DisplayRole:
+            case Qt::EditRole:
+                return static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str();
+                break;
+            }
+            break;
         case 4: //CompoundCheck
             switch(role)
             {
@@ -382,8 +398,25 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
         case Qt::DisplayRole:
         case Qt::EditRole:
             BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
-            static_cast<RunCommandScoreChecker*>(basecheck)->setSearchString(value.toString().toStdString());
-            break;
+            switch(typevalue)
+            {
+            case 0: //PathExist
+                //Nothing to set here
+                break;
+            case 1: //CommandCheck
+                (static_cast<RunCommandScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
+                break;
+            case 2: //ValueCheck
+                static_cast<ValueScoreChecker*>(basecheck)->setSearchString(value.toString().toStdString());
+                break;
+            case 3: //ScriptCheck
+                static_cast<ScriptScoreChecker*>(basecheck)->setSearchString(value.toString().toStdString());
+                break;
+            case 4: //CompoundCheck
+                //static_cast<PathExistScoreChecker*>(basecheck)->setSearchString(value.toString());
+                break;
+            }
+             break;
         }
         break;
     case 5: //ScoreChecker point value
@@ -424,6 +457,7 @@ Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the a
     case 6:
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }
+    return 0;
 }
 void MyScoringModel::refresh(int column)
 {
