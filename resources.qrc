@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Imgs/SuccessSignal.xpm</file>
+        <file>Imgs/RunningSignal.xpm</file>
+        <file>Imgs/NotStartedSignal.xpm</file>
+        <file>Imgs/ErrorSignal.xpm</file>
+        <file>SoundFX/win.wav</file>
+        <file>SoundFX/lose.wav</file>
+    </qresource>
+</RCC>
