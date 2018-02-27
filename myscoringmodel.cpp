@@ -36,7 +36,12 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             break;
         case Qt::EditRole:
             //return tr("Path Exist");
-            return QString(vecScoreCheckers->at(index.row())->getCheckerType().c_str());
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="PathExist")return 0;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunCommand")return 1;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="ValueCheck")return 2;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunScript")return 3;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="Compound")return 4;
+            //return QString(vecScoreCheckers->at(index.row())->getCheckerType().c_str());
             break;
         }
         break;
@@ -99,6 +104,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
     case 3: //ScoreChecker Opt2
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
+        //value = index.model()->data(QModelIndex(index.row(),0),Qt::EditRole).toInt();
         switch(value)
         {
         case 0: //PathCheck
@@ -290,6 +296,7 @@ QVariant MyScoringModel::headerData(int section, Qt::Orientation orientation, in
 }
 bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, int role= Qt::EditRole)
 {
+    int typevalue = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
     int checktype=value.toInt();
     switch(index.column())
     {
@@ -348,8 +355,25 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
         case Qt::DisplayRole:
         case Qt::EditRole:
             BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
-            static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());//PathExistScoreChecker * scorecheck= basecheck;
-            break;
+            switch(typevalue)
+            {
+            case 0: //PathExist
+                static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());//PathExistScoreChecker * scorecheck= basecheck;
+                break;
+            case 1: //CommandCheck
+                static_cast<RunCommandScoreChecker*>(basecheck)->setSearchExist(value.toBool());
+                break;
+            case 2: //ValueCheck
+                static_cast<ValueScoreChecker*>(basecheck)->setDesireExist(value.toBool());
+                break;
+            case 3: //ScriptCheck
+                static_cast<ScriptScoreChecker*>(basecheck)->setDesiredState(value.toBool());
+                break;
+            case 4: //CompoundCheck
+                //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
+                break;
+            }
+             break;
         }
         break;
     case 4: //Unused column

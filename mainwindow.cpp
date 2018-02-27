@@ -72,7 +72,7 @@ void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
     configtosave.vecScoreCheckers->push_back(&commandcheck);
     commandcheck.setCommand("sysctl net.ipv4.ip_forward");
     commandcheck.setSearchString("net.ipv4.ip_forward = 0");
-    commandcheck.setSearchExist(true);
+    commandcheck.setSearchExist(false);
     commandcheck.executeCommand();
     commandcheck.checkState();
     std::cout << "CommandCheck returned " << commandcheck.getState() << std::endl;

@@ -18,6 +18,7 @@ public:
     std::string Name;
     std::string Filename;
     std::string Description;
+    std::string Passphrase;
     unsigned int checkSeconds;
     ScoreCheckingConfig();
     std::vector<BaseScoreChecker *> * vecScoreCheckers;

@@ -6,6 +6,7 @@ ScoreCheckingConfig::ScoreCheckingConfig()
     this->checkSeconds=30;
     this->Name="A New Configuration";
     this->Description="This configuration is undescribed.";
+    this->Passphrase="";
 }
 template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const unsigned int /* file_version */)
 {
@@ -18,7 +19,8 @@ template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const u
         ar & BOOST_SERIALIZATION_NVP(vecScoreCheckers)
            & BOOST_SERIALIZATION_NVP(Name)
            & BOOST_SERIALIZATION_NVP(Description)
-           & BOOST_SERIALIZATION_NVP(checkSeconds);
+           & BOOST_SERIALIZATION_NVP(checkSeconds)
+           & BOOST_SERIALIZATION_NVP(Passphrase);
             //& BOOST_SERIALIZATION_NVP(Scans);
 
 }

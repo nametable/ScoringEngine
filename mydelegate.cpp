@@ -61,8 +61,8 @@ QWidget * MyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &
         combo->addItem(tr("Exist"));
         combo->setCurrentIndex(index.data(Qt::EditRole).toBool());
         return combo;
-    case 4:
-        return button;
+    case 4: //SearchString
+        //return button;
     case 5: //Points
         break;
     case 6:
