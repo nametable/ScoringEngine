@@ -4,11 +4,14 @@
 #include <QFileDialog>
 #include "runcommandscorechecker.h"
 #include "emptyscorechecker.h"
+#include "configpropertieswindow.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //confmen
     statusBar()->showMessage("Program loaded.");
     //RunCommandScoreChecker testcheck;
     //testcheck.setCommand("ls");
@@ -104,4 +107,10 @@ void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
     std::cout << "Loaded " << config->Name << std::endl;
     std::cout << "SCript" << std::endl << static_cast<ScriptScoreChecker*>(config->vecScoreCheckers->at(3))->getScript() << std::endl;
 
+}
+
+void MainWindow::on_actionConfiguration_Prefs_triggered()
+{
+    ConfigPropertiesWindow *confmenu= new ConfigPropertiesWindow(0,this->config);
+    confmenu->show();
 }

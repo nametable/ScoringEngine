@@ -27,6 +27,8 @@ private slots:
 
     void on_actionInsert_Blank_triggered();
 
+    void on_actionConfiguration_Prefs_triggered();
+
 private:
     Ui::MainWindow *ui;
     MyScoringModel *scoringmodel;

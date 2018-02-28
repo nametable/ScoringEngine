@@ -180,6 +180,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
         }
         break;
     case 4: //ScoreChecker Opt3
+        //return QString("nothing");
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
         switch(value)
@@ -197,7 +198,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
-                return static_cast<RunCommandScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str();
+                return QString(static_cast<RunCommandScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str());
                 break;
             }
             break;
@@ -206,7 +207,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
-                return static_cast<ValueScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str();
+                return QString(static_cast<ValueScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str());
                 break;
             }
             break;
@@ -215,7 +216,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
-                return static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str();
+                return QString(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getSearchString().c_str());
                 break;
             }
             break;
@@ -407,10 +408,10 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
                 (static_cast<RunCommandScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
                 break;
             case 2: //ValueCheck
-                static_cast<ValueScoreChecker*>(basecheck)->setSearchString(value.toString().toStdString());
+                (static_cast<ValueScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
                 break;
             case 3: //ScriptCheck
-                static_cast<ScriptScoreChecker*>(basecheck)->setSearchString(value.toString().toStdString());
+                (static_cast<ScriptScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
                 break;
             case 4: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setSearchString(value.toString());

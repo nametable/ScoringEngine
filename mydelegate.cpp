@@ -128,6 +128,8 @@ void MyDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
         model->setData(index,combo->currentIndex());
         break;
     case 4:
+        lineedit = static_cast<QLineEdit*>(editor);
+        model->setData(index,lineedit->text());
         break;
     case 5: //ScoreChecker point value
         spinbox = static_cast<QSpinBox*>(editor);

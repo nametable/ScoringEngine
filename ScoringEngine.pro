@@ -35,7 +35,8 @@ SOURCES += \
     checker.cpp \
     emptyscorechecker.cpp \
     valuescorechecker.cpp \
-    scriptscorechecker.cpp
+    scriptscorechecker.cpp \
+    configpropertieswindow.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,10 +49,12 @@ HEADERS += \
     checker.h \
     emptyscorechecker.h \
     valuescorechecker.h \
-    scriptscorechecker.h
+    scriptscorechecker.h \
+    configpropertieswindow.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    configpropertieswindow.ui
 
 !debug {
     INCLUDEPATH += /home/logan/Documents/Libraries/boost_1_65_1

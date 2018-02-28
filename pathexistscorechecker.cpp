@@ -10,7 +10,8 @@ PathExistScoreChecker::PathExistScoreChecker()
 void PathExistScoreChecker::checkState()
 {
     this->state=(boost::filesystem::exists(filepath) == this->desireExist);
-    if (this->state){this->soundWin();}else{this->soundLose();}
+    //if (this->state){this->soundWin();}else{this->soundLose();}
+    //no need to play sound now
 }
 void PathExistScoreChecker::setFilepath(std::string newFilepath)
 {
