@@ -47,7 +47,9 @@ QWidget * MyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &
         case 0: //PathCheck
             break;
         case 1: //CommandCheck
+            break;
         case 2: //ValueCheck
+            break;
         case 3: //ScriptCheck
             button->setText("EditScript");
             return button;
@@ -117,6 +119,9 @@ void MyDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
             break;
         case 1: //CommandCheck
         case 2: //ValueCheck
+            lineedit = static_cast<QLineEdit*>(editor);
+            model->setData(index,lineedit->text());
+            break;
         case 3: //ScriptCheck
             break;
         case 4: //CompoundCheck
@@ -149,8 +154,9 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
          switch(index.column())
          {
          case 2:
-             if (model->data(index.sibling(index.row(),0),Qt::DisplayRole).toString()=="PathExist")
+             switch (model->data(index.sibling(index.row(),0),Qt::EditRole).toInt())
              {
+             case 0:
                  QMouseEvent * e = (QMouseEvent *)event;
                  if (e->button()==Qt::RightButton)
                  {
@@ -159,11 +165,12 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
                      QString filename=opendialog.getOpenFileName(0,tr("Select Path"),model->data(index).toString());
                      if (filename.length()>0)model->setData(index, filename);
                  }
+             case 1:
+                 break;
+             case 2:
+                 break;
              }
-             //
-             //opendialog.setDirectory(QDir(QString("/")));
-             //opendialog.getExistingDirectory(0,tr("Get Folder"));
-             //opendialog.getOpenFileName(0, tr("Select File"));
+
              break;
          case 6:
 

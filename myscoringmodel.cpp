@@ -359,10 +359,25 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
         case Qt::DisplayRole:
         case Qt::EditRole:
             BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
-            static_cast<PathExistScoreChecker*>(basecheck)->setFilepath(value.toString().toStdString());//PathExistScoreChecker * scorecheck= basecheck;
-            //static_cast<PathExistScoreChecker*>(vecScoreCheckers->at(index.row())).setFilepath(value.toString().toStdString());
-            //scorecheck->setFilepath(value.toString().toStdString());
-            //vecScoreCheckers->at(index.row())
+            switch(typevalue)
+            {
+            case 0: //PathExist
+                static_cast<PathExistScoreChecker*>(basecheck)->setFilepath(value.toString().toStdString());//PathExistScoreChecker * scorecheck= basecheck;
+                break;
+            case 1: //CommandCheck
+                static_cast<RunCommandScoreChecker*>(basecheck)->setCommand(value.toString().toStdString());
+                break;
+            case 2: //ValueCheck
+                static_cast<ValueScoreChecker*>(basecheck)->setFilepath(value.toString().toStdString());
+                break;
+            case 3: //ScriptCheck
+                //static_cast<ScriptScoreChecker*>(basecheck)->setDesiredState(value.toBool());
+                break;
+            case 4: //CompoundCheck
+                //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
+                break;
+            }
+
             break;
         }
         break;

@@ -33,7 +33,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>100</y>
+     <y>120</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -46,7 +46,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>90</y>
+     <y>110</y>
      <width>51</width>
      <height>26</height>
     </rect>
@@ -79,7 +79,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>50</y>
+     <y>70</y>
      <width>211</width>
      <height>25</height>
     </rect>
@@ -89,13 +89,36 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>60</y>
+     <y>80</y>
      <width>101</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
     <string>Passphrase</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtDescription">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>40</y>
+     <width>211</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>50</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Description</string>
    </property>
   </widget>
  </widget>
