@@ -156,15 +156,18 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
          case 2:
              switch (model->data(index.sibling(index.row(),0),Qt::EditRole).toInt())
              {
-             case 0:
-                 QMouseEvent * e = (QMouseEvent *)event;
-                 if (e->button()==Qt::RightButton)
+             case 0: ;
                  {
-                     QFileDialog opendialog(0, tr("Select Path"));
+                     QMouseEvent * e = (QMouseEvent *)event;
+                     if (e->button()==Qt::RightButton)
+                     {
+                         QFileDialog opendialog(0, tr("Select Path"));
 
-                     QString filename=opendialog.getOpenFileName(0,tr("Select Path"),model->data(index).toString());
-                     if (filename.length()>0)model->setData(index, filename);
+                         QString filename=opendialog.getOpenFileName(0,tr("Select Path"),model->data(index).toString());
+                         if (filename.length()>0)model->setData(index, filename);
+                     }
                  }
+                 break;
              case 1:
                  break;
              case 2:
