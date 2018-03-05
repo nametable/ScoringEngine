@@ -29,6 +29,10 @@ private slots:
 
     void on_actionConfiguration_Prefs_triggered();
 
+    void on_actionSave_Config_triggered();
+
+    void on_actionOpen_Config_triggered();
+
 private:
     Ui::MainWindow *ui;
     MyScoringModel *scoringmodel;

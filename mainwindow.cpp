@@ -106,11 +106,29 @@ void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
 
     std::cout << "Loaded " << config->Name << std::endl;
     std::cout << "SCript" << std::endl << static_cast<ScriptScoreChecker*>(config->vecScoreCheckers->at(3))->getScript() << std::endl;
-
+    this->on_actionOpen_Config_triggered();
 }
 
 void MainWindow::on_actionConfiguration_Prefs_triggered()
 {
     ConfigPropertiesWindow *confmenu= new ConfigPropertiesWindow(0,this->config);
     confmenu->show();
+}
+
+void MainWindow::on_actionSave_Config_triggered()
+{
+    QFileDialog savedialog(0, tr("Save Config"));
+
+    QString filename=savedialog.getSaveFileName(0,tr("Save Config"),tr("*.bin"));
+    saveConfigBIN(*config, filename.toStdString().c_str());
+}
+
+void MainWindow::on_actionOpen_Config_triggered()
+{
+    QFileDialog opendialog(0, tr("Open Config"));
+
+    QString filename=opendialog.getOpenFileName(0,tr("Open Config"),tr("*.bin"));
+    this->config=new ScoreCheckingConfig();
+    loadConfigBIN(*config, filename.toStdString().c_str());
+    this->SetupTable();
 }
