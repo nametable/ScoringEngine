@@ -10,6 +10,7 @@
 #include "scorecheckingconfig.h"
 #include <QStandardItemModel>
 #include <vector>
+#include <QTimer>
 namespace Ui {
 class MainWindow;
 }
@@ -32,7 +33,7 @@ private slots:
     void on_actionSave_Config_triggered();
 
     void on_actionOpen_Config_triggered();
-
+    void scoreupdate();
 private:
     Ui::MainWindow *ui;
     MyScoringModel *scoringmodel;
@@ -40,8 +41,10 @@ private:
     QStandardItemModel *standardmodel;
     std::vector<BaseScoreChecker*> *vecScoreCheckers;
     ScoreCheckingConfig *config;
+    QTimer *timer;
     void SetupTable();
     void TestScoreCheckers();
+
 };
 
 #endif // MAINWINDOW_H

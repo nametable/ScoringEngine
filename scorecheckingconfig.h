@@ -19,9 +19,15 @@ public:
     std::string Filename;
     std::string Description;
     std::string Passphrase;
+    std::string ScoreReportPath;
     unsigned int checkSeconds;
     ScoreCheckingConfig();
     std::vector<BaseScoreChecker *> * vecScoreCheckers;
+    void GenerateScoreReport();
+private:
+    bool bFixedChanged;
+    int scoreTotal;
+    int fixedTotal;
 };
 
 void saveConfigXML(const ScoreCheckingConfig &s, const char * filename);

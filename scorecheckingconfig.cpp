@@ -1,5 +1,8 @@
 #include "scorecheckingconfig.h"
 #include <boost/serialization/nvp.hpp>
+#include <iostream>
+#include <fstream>
+#include <QtMultimedia/qsound.h>
 ScoreCheckingConfig::ScoreCheckingConfig()
 {
     vecScoreCheckers= new std::vector<BaseScoreChecker *>;
@@ -56,4 +59,36 @@ void loadConfigBIN(ScoreCheckingConfig &s, const char * filename) //from example
     boost::archive::binary_iarchive ia(ifs);
     // restore the schedule from the archive
     ia >> BOOST_SERIALIZATION_NVP(s);
+}
+void ScoreCheckingConfig::GenerateScoreReport()
+{
+    if(this->Filename==""){this->Filename="ScoreReport.html";}
+    std::ofstream fileout;
+    std::string stringReport;
+    int scoreNew=0;
+
+    stringReport+="<center><h1>ScoreReport</h1></center>\n";
+    for (int i=0; i< this->vecScoreCheckers->size(); i++ )
+    {
+        vecScoreCheckers->at(i)->checkState();
+        if (vecScoreCheckers->at(i)->getState())
+        {
+            scoreNew+=vecScoreCheckers->at(i)->getPoints();
+            stringReport+= "Fixed " ;//<< vecScoreCheckers->at(i)->getDescription() << std::to_string( vecScoreCheckers->at(i)->getPoints());
+        }
+    }
+
+                  ""
+                  ""
+                  ""
+                  ""
+                  ""
+                  ""
+                  ""
+                  "";
+    fileout.open(this->Filename);
+    fileout << stringReport;
+    fileout.close();
+    if (scoreNew> this->scoreTotal){QSound::play("://SoundFX/win.wav");}
+    else if (scoreNew< this->scoreTotal) {QSound::play("://SoundFX/lose.wav");}
 }

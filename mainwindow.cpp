@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     scoringdelegate= new MyDelegate(this);
     //scoringmodel->set
     SetupTable();
+    timer= new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(scoreupdate()));
+    timer->start(5000);
 
 
 }
@@ -128,7 +131,15 @@ void MainWindow::on_actionOpen_Config_triggered()
     QFileDialog opendialog(0, tr("Open Config"));
 
     QString filename=opendialog.getOpenFileName(0,tr("Open Config"),tr("*.bin"));
+    delete this->config;
     this->config=new ScoreCheckingConfig();
     loadConfigBIN(*config, filename.toStdString().c_str());
+    scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
+    scoringdelegate= new MyDelegate(this);
     this->SetupTable();
+}
+void MainWindow::scoreupdate()
+{
+    std::cout << "Times up" << std::endl;
+    config->GenerateScoreReport();
 }
