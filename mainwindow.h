@@ -34,6 +34,11 @@ private slots:
 
     void on_actionOpen_Config_triggered();
     void scoreupdate();
+
+    void on_actionTimer_Start_toggled(bool arg1);
+
+    void on_actionNew_Config_triggered();
+
 private:
     Ui::MainWindow *ui;
     MyScoringModel *scoringmodel;

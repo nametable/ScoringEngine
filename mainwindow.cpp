@@ -27,9 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     scoringdelegate= new MyDelegate(this);
     //scoringmodel->set
     SetupTable();
+
     timer= new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(scoreupdate()));
-    timer->start(5000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(scoreupdate())); //tell timer to execute scoreupdate()
 
 
 }
@@ -142,4 +142,22 @@ void MainWindow::scoreupdate()
 {
     std::cout << "Times up" << std::endl;
     config->GenerateScoreReport();
+}
+
+void MainWindow::on_actionTimer_Start_toggled(bool arg1)
+{
+    if (arg1){if (this->config->checkSeconds==0)this->config->checkSeconds=5;this->timer->start(this->config->checkSeconds*1000);}else{this->timer->stop();}
+}
+
+void MainWindow::on_actionNew_Config_triggered()
+{
+    if (true) //ask first before erasing
+    {
+        delete this->config;
+        this->config=new ScoreCheckingConfig();
+        scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
+        scoringdelegate= new MyDelegate(this);
+        this->SetupTable();
+    }
+
 }

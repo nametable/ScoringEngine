@@ -65,19 +65,37 @@ void ScoreCheckingConfig::GenerateScoreReport()
     if(this->Filename==""){this->Filename="ScoreReport.html";}
     std::ofstream fileout;
     std::string stringReport;
+    std::string stringTable;
+    int possiblePoints=0;
+    int possibleIssues=0;
     int scoreNew=0;
-
-    stringReport+="<center><h1>ScoreReport</h1></center>\n";
+    this->fixedTotal=0;
+    stringReport+="<center><h1>"+ this->Name +"</h1>\n";
+    stringTable+="<table>";
     for (int i=0; i< this->vecScoreCheckers->size(); i++ )
     {
         vecScoreCheckers->at(i)->checkState();
         if (vecScoreCheckers->at(i)->getState())
         {
             scoreNew+=vecScoreCheckers->at(i)->getPoints();
-            stringReport+= "Fixed " ;//<< vecScoreCheckers->at(i)->getDescription() << std::to_string( vecScoreCheckers->at(i)->getPoints());
+            this->fixedTotal++;
+            if ( vecScoreCheckers->at(i)->getPoints()>=0)
+            {
+                stringTable+= "<tr><td>Fixed: " + vecScoreCheckers->at(i)->getDescription() + "</td><td>" + std::to_string( vecScoreCheckers->at(i)->getPoints()) + "pt(s)</td>\n";
+            }else {
+                stringTable+= "<tr style='color:red'><td>Penalty: " + vecScoreCheckers->at(i)->getDescription() + "</td><td>" + std::to_string( vecScoreCheckers->at(i)->getPoints()) + "pt(s)</td>\n";
+            }
+        }
+        if (vecScoreCheckers->at(i)->getPoints()>0) //if this is a good issue
+        {
+            possiblePoints+=vecScoreCheckers->at(i)->getPoints();
+            possibleIssues++;
         }
     }
-
+    stringTable+="</table>";
+    stringReport+="<h2>"+ std::to_string(this->fixedTotal) +"/"+ std::to_string(possibleIssues) +" issues ("+std::to_string(this->fixedTotal*100/possibleIssues) +"%) | "+std::to_string(scoreNew) + "/"+std::to_string(possiblePoints)+" pts ("+ std::to_string(scoreNew*100/possiblePoints)+ "%)</h2>";
+    stringReport+=stringTable;
+    stringReport+=""
                   ""
                   ""
                   ""
@@ -85,10 +103,11 @@ void ScoreCheckingConfig::GenerateScoreReport()
                   ""
                   ""
                   ""
-                  "";
+                  "<br><br><b>Copyright 2018 Logan Bateman</b></center>";
     fileout.open(this->Filename);
     fileout << stringReport;
     fileout.close();
     if (scoreNew> this->scoreTotal){QSound::play("://SoundFX/win.wav");}
     else if (scoreNew< this->scoreTotal) {QSound::play("://SoundFX/lose.wav");}
+    this->scoreTotal=scoreNew;
 }
