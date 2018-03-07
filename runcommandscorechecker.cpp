@@ -31,7 +31,12 @@ void RunCommandScoreChecker::executeCommand()
 void RunCommandScoreChecker::checkState()
 {
     executeCommand();
-    this->state=((this->commandoutput.find(this->searchstring)!= std::string::npos)==this->bSearchstringexist); //logical xnor
+    std::regex r(this->searchstring); // make regex
+    std::smatch m;
+    std::regex_search(this->commandoutput, m, r);
+    this->state=((m.size()>0)==this->bSearchstringexist); //logical xnor
+    //old non regex
+    //this->state=((this->commandoutput.find(this->searchstring)!= std::string::npos)==this->bSearchstringexist); //logical xnor
 }
 void RunCommandScoreChecker::setSearchExist(bool exist)
 {

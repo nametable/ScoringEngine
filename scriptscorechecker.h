@@ -1,7 +1,7 @@
 #ifndef SCRIPTSCORECHECKER_H
 #define SCRIPTSCORECHECKER_H
 #include "basescorechecker.h"
-
+#include <regex>
 class ScriptScoreChecker : public BaseScoreChecker
 {
     friend class boost::serialization::access;

@@ -26,7 +26,12 @@ bool ValueScoreChecker::getDesireExist()
 void ValueScoreChecker::checkState()
 {
     this->readFile();
-    this->state=((this->filecontent.find(this->searchstring)!= std::string::npos)==this->desireExist); //logical xnor
+    std::regex r(this->searchstring); // make regex
+    std::smatch m;
+    std::regex_search(this->filecontent, m, r);
+    this->state=((m.size()>0)==this->getDesireExist()); //logical xnor
+
+    //this->state=((this->filecontent.find(this->searchstring)!= std::string::npos)==this->desireExist); //logical xnor
 }
 void ValueScoreChecker::readFile()
 {

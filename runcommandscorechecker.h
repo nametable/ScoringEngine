@@ -1,7 +1,7 @@
 #ifndef RUNCOMMANDSCORECHECKER_H
 #define RUNCOMMANDSCORECHECKER_H
 #include "basescorechecker.h"
-
+#include <regex>
 class RunCommandScoreChecker : public BaseScoreChecker
 {
     friend class boost::serialization::access;
