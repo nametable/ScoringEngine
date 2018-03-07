@@ -7,6 +7,6 @@ Dependencies: QtCore, QtGUI, QtMultimedia, BoostFilesystem, BoostSerialization
 
 How to build.
 
-  cmake .
-  make
-  sudo make install
+cmake .
+make
+sudo make install
