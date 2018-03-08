@@ -32,7 +32,6 @@ public:
     std::string getCommandOutput();
     RunCommandScoreChecker();
     void checkState();
-
 };
 
 #endif // RUNCOMMANDSCORECHECKER_H
