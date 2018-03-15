@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,7 +36,8 @@ SOURCES += \
     emptyscorechecker.cpp \
     valuescorechecker.cpp \
     scriptscorechecker.cpp \
-    configpropertieswindow.cpp
+    configpropertieswindow.cpp \
+    scripteditdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,11 +51,13 @@ HEADERS += \
     emptyscorechecker.h \
     valuescorechecker.h \
     scriptscorechecker.h \
-    configpropertieswindow.h
+    configpropertieswindow.h \
+    scripteditdialog.h
 
 FORMS += \
         mainwindow.ui \
-    configpropertieswindow.ui
+    configpropertieswindow.ui \
+    scripteditdialog.ui
 
 !debug {
     INCLUDEPATH += /home/logan/Documents/Libraries/boost_1_65_1

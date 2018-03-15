@@ -69,9 +69,6 @@ public:
     void setDescription(std::string newDescription); //description of item
     void setPoints(int newPoints);    //points of item - negative for mistakes
     virtual void checkState()=0; //Pure Virtual - run code to see if issue has been resolved
-
-    static void soundWin();
-    static void soundLose();
 };
 //BOOST_SERIALIZATION_ASSUME_ABSTRACT(BaseScoreChecker)
 #endif // BASESCORECHECKER_H

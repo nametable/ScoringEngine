@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <iostream>
 #include "checker.h"
+#include "scripteditdialog.h"
 MyDelegate::MyDelegate(QObject *parent)
 {
 }
@@ -156,7 +157,7 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
          case 2:
              switch (model->data(index.sibling(index.row(),0),Qt::EditRole).toInt())
              {
-             case 0: ;
+             case 0: ; //PathExist
                  {
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
@@ -172,6 +173,16 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
                  break;
              case 2:
                  break;
+             case 3:
+                 QMouseEvent * e = (QMouseEvent *)event;
+                 if (e->button()==Qt::RightButton)
+                 {
+                     ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole).toString().toStdString() );
+                     scriptedit->exec();
+                     //model->data(index, Qt::EditRole)
+                     //model->setData(index, string);
+                 }
+                 break;
              }
 
              break;
@@ -185,7 +196,6 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
              break;
          }
      }
-
      return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
 void MyDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const

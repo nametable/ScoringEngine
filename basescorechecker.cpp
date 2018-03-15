@@ -4,7 +4,6 @@
 //
 /////*/
 #include "basescorechecker.h"
-#include <QtMultimedia/qsound.h>
 //#include "pathexistscorechecker.h"
 BaseScoreChecker::BaseScoreChecker()
 {
@@ -52,13 +51,5 @@ void BaseScoreChecker::setPoints(int newPoints) //has built in max of 10 and min
     {
         this->points=newPoints;
     }
-}
-void BaseScoreChecker::soundWin()
-{
-    QSound::play("://SoundFX/win.wav");
-}
-void BaseScoreChecker::soundLose()
-{
-    QSound::play("://SoundFX/lose.wav");
 }
 
