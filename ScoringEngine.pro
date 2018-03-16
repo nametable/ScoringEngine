@@ -62,10 +62,10 @@ FORMS += \
 !debug {
     INCLUDEPATH += /home/logan/Documents/Libraries/boost_1_65_1
 
-    LIBS += -L/home/logan/Documents/Libraries/boost_1_65_1/stage-lin-64/lib -l:libboost_filesystem.a -l:libboost_system.a -l:libboost_serialization.a
+    LIBS += -L/home/logan/Documents/Libraries/boost_1_65_1/stage-lin-64/lib -l:libboost_filesystem.a -l:libboost_system.a -l:libboost_serialization.a -l:libboost_regex.a
 }
 debug {
-    LIBS += -lboost_filesystem -lboost_system -lboost_serialization
+    LIBS += -lboost_filesystem -lboost_system -lboost_serialization -lboost_regex
 }
 
 DISTFILES +=
