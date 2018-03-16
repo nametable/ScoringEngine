@@ -27,6 +27,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <boost/regex.hpp>
 //#include <QItemDelegate>
 class BaseScoreChecker
 {

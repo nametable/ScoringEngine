@@ -50,6 +50,7 @@ void BaseScoreChecker::setPoints(int newPoints) //has built in max of 10 and min
     }else
     {
         this->points=newPoints;
+
     }
 }
 

@@ -1,7 +1,6 @@
 #ifndef VALUESCORECHECKER_H
 #define VALUESCORECHECKER_H
 #include "basescorechecker.h"
-#include <regex>
 class ValueScoreChecker : public BaseScoreChecker
 {
     friend class boost::serialization::access;

@@ -34,10 +34,14 @@ bool ScriptScoreChecker::getDesiredState()
 void ScriptScoreChecker::checkState()
 {
     this->execute();
-    std::regex r(this->searchString); // make regex
+    boost::regex expression(this->searchString);
+    this->state=(boost::regex_search(this->getOutput(),expression,boost::match_any)==this->desiredState); //logical xnor
+
+    /*std::regex r(this->searchString); // make regex
     std::smatch m;
     std::regex_search(this->scriptOutput, m, r);
     this->state=((m.size()>0)==this->desiredState); //logical xnor
+    */
     //old - non regex
     //this->state=((this->scriptOutput.find(this->searchString)!= std::string::npos)==this->desiredState); //logical xnor
 }
