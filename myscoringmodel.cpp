@@ -87,13 +87,14 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             }
             break;
         case 3: //ScriptCheck
+            if (role==Qt::EditRole | Qt::DisplayRole)return QString(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getScript().c_str());
             switch(role)
             {
             case Qt::DisplayRole:
             case Qt::EditRole:
                 //return QString(static_cast<ValueScoreChecker*>(vecScoreCheckers->at(index.row()))->getFilepath().c_str());
                 //button for editing script will be here
-
+                return tr("RtClick to Edit");
                 break;
             }
             break;
@@ -371,8 +372,7 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
                 static_cast<ValueScoreChecker*>(basecheck)->setFilepath(value.toString().toStdString());
                 break;
             case 3: //ScriptCheck
-                //static_cast<ScriptScoreChecker*>(basecheck)->setDesiredState(value.toBool());
-                break;
+                static_cast<ScriptScoreChecker*>(basecheck)->setScript(value.toString().toStdString());
             case 4: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
                 break;
@@ -456,6 +456,7 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
 }
 Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the attributes of individual items/cells based on data
 {
+    int typevalue = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
     switch (index.column())
     {
     case 0:
@@ -464,6 +465,7 @@ Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the a
         //return Qt::ItemIsSelectable;
     case 2:
         //return Qt::ItemIsSelectable;
+        if (typevalue==3)return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     case 3:
         //return Qt::ItemIsSelectable;
     case 4:

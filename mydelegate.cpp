@@ -52,8 +52,9 @@ QWidget * MyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &
         case 2: //ValueCheck
             break;
         case 3: //ScriptCheck
-            button->setText("EditScript");
-            return button;
+            //button->setText("EditScript");
+            //return button;
+            break;
         case 4: //CompoundCheck
             button->setText("GoInline");
             return button;
@@ -177,10 +178,10 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
                  QMouseEvent * e = (QMouseEvent *)event;
                  if (e->button()==Qt::RightButton)
                  {
-                     ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole).toString().toStdString() );
+                     ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole | Qt::DisplayRole).toString().toStdString() );
                      scriptedit->exec();
                      //model->data(index, Qt::EditRole)
-                     //model->setData(index, string);
+                     if (scriptedit->getScript()!="")model->setData(index, scriptedit->getScript().c_str());
                  }
                  break;
              }

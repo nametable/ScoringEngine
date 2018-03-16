@@ -15,7 +15,7 @@ public:
     explicit ScriptEditDialog(QWidget *parent = 0);
     explicit ScriptEditDialog(QWidget *parent = 0, std::string currentScript="");
     ~ScriptEditDialog();
-
+    std::string getScript();
 private slots:
     void on_buttonBox_accepted();
 
