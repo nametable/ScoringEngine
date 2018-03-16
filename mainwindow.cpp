@@ -109,7 +109,7 @@ void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
 
     std::cout << "Loaded " << config->Name << std::endl;
     std::cout << "SCript" << std::endl << static_cast<ScriptScoreChecker*>(config->vecScoreCheckers->at(3))->getScript() << std::endl;
-    this->on_actionOpen_Config_triggered();
+    //this->on_actionOpen_Config_triggered();
 }
 
 void MainWindow::on_actionConfiguration_Prefs_triggered()
