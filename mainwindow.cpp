@@ -17,9 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //testcheck.setCommand("ls");
     //testcheck.executeCommand();
     //std::cout << testcheck.getCommandOutput();
-    TestScoreCheckers();
+    //TestScoreCheckers();
 
-    //config= new ScoreCheckingConfig;
+    config= new ScoreCheckingConfig;
     //config->vecScoreCheckers->push_back(new PathExistScoreChecker());
     //config->vecScoreCheckers->push_back(new PathExistScoreChecker());
     //config->vecScoreCheckers->push_back(new EmptyScoreChecker());
