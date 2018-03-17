@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -32,12 +32,12 @@ SOURCES += \
     pathexistscorechecker.cpp \
     runcommandscorechecker.cpp \
     scorecheckingconfig.cpp \
-    checker.cpp \
     emptyscorechecker.cpp \
     valuescorechecker.cpp \
     scriptscorechecker.cpp \
     configpropertieswindow.cpp \
-    scripteditdialog.cpp
+    scripteditdialog.cpp \
+    backgroundservice.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,12 +47,12 @@ HEADERS += \
     pathexistscorechecker.h \
     runcommandscorechecker.h \
     scorecheckingconfig.h \
-    checker.h \
     emptyscorechecker.h \
     valuescorechecker.h \
     scriptscorechecker.h \
     configpropertieswindow.h \
-    scripteditdialog.h
+    scripteditdialog.h \
+    backgroundservice.h
 
 FORMS += \
         mainwindow.ui \
