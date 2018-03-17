@@ -2,7 +2,7 @@
 #include <boost/serialization/nvp.hpp>
 #include <iostream>
 #include <fstream>
-//#include <QtMultimedia/qsound.h>
+#include <QtMultimedia/qsound.h>
 ScoreCheckingConfig::ScoreCheckingConfig()
 {
     vecScoreCheckers= new std::vector<BaseScoreChecker *>;
@@ -107,7 +107,7 @@ void ScoreCheckingConfig::GenerateScoreReport()
     fileout.open(this->Filename);
     fileout << stringReport;
     fileout.close();
-    //if (scoreNew> this->scoreTotal){QSound::play("://SoundFX/win.wav");}
-    //else if (scoreNew< this->scoreTotal) {QSound::play("://SoundFX/lose.wav");}
+    if (scoreNew> this->scoreTotal){QSound::play("://SoundFX/win.wav");}
+    else if (scoreNew< this->scoreTotal) {QSound::play("://SoundFX/lose.wav");}
     this->scoreTotal=scoreNew;
 }
