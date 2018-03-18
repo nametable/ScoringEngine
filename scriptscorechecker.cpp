@@ -77,7 +77,7 @@ void ScriptScoreChecker::execute()
 }
 bool gen_scriptrun_directory() //creates the runs/scans directory using boost
 {
-
+    //boost::filesystem::path appPath(boost::filesystem::canonical(boost::filesystem::system_complete(argv[0])).parent_path());
     if(boost::filesystem::create_directories("tmp")) {
         //std::cout << "Success" << "\n";
         return true;

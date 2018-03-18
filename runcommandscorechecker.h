@@ -11,7 +11,7 @@ class RunCommandScoreChecker : public BaseScoreChecker
         ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(BaseScoreChecker);
         ar & BOOST_SERIALIZATION_NVP(bSearchstringexist)
            & BOOST_SERIALIZATION_NVP(command)
-           & BOOST_SERIALIZATION_NVP(commandoutput)
+           //& BOOST_SERIALIZATION_NVP(commandoutput)
            & BOOST_SERIALIZATION_NVP(searchstring);
         //ar & street1 & street2;
     }

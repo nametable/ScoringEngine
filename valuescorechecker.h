@@ -11,7 +11,7 @@ class ValueScoreChecker : public BaseScoreChecker
         ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(BaseScoreChecker);
         ar & BOOST_SERIALIZATION_NVP(desireExist)
            & BOOST_SERIALIZATION_NVP(filepath)
-           & BOOST_SERIALIZATION_NVP(filecontent)
+           //& BOOST_SERIALIZATION_NVP(filecontent)
            & BOOST_SERIALIZATION_NVP(searchstring);
         //ar & street1 & street2;
     }

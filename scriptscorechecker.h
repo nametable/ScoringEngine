@@ -11,7 +11,7 @@ class ScriptScoreChecker : public BaseScoreChecker
 
         ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(BaseScoreChecker);
         ar & BOOST_SERIALIZATION_NVP(script)
-           & BOOST_SERIALIZATION_NVP(scriptOutput)
+           //& BOOST_SERIALIZATION_NVP(scriptOutput)
            & BOOST_SERIALIZATION_NVP(desiredState)
            & BOOST_SERIALIZATION_NVP(searchString);
         //ar & street1 & street2;
