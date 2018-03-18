@@ -2,7 +2,7 @@
 #include <boost/serialization/nvp.hpp>
 #include <iostream>
 #include <fstream>
-#include <QtMultimedia/qsound.h>
+#include "boost/process.hpp"
 ScoreCheckingConfig::ScoreCheckingConfig()
 {
     vecScoreCheckers= new std::vector<BaseScoreChecker *>;
@@ -23,7 +23,8 @@ template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const u
            & BOOST_SERIALIZATION_NVP(Name)
            & BOOST_SERIALIZATION_NVP(Description)
            & BOOST_SERIALIZATION_NVP(checkSeconds)
-           & BOOST_SERIALIZATION_NVP(Passphrase);
+           & BOOST_SERIALIZATION_NVP(Passphrase)
+           & BOOST_SERIALIZATION_NVP(scoreTotal);
             //& BOOST_SERIALIZATION_NVP(Scans);
 
 }
@@ -107,7 +108,7 @@ void ScoreCheckingConfig::GenerateScoreReport()
     fileout.open(this->Filename);
     fileout << stringReport;
     fileout.close();
-    if (scoreNew> this->scoreTotal){QSound::play("://SoundFX/win.wav");}
-    else if (scoreNew< this->scoreTotal) {QSound::play("://SoundFX/lose.wav");}
+    if (scoreNew> this->scoreTotal){ boost::process::system("aplay SoundFX/win.wav");} //QSound::play("://SoundFX/win.wav");}
+    else if (scoreNew< this->scoreTotal) {boost::process::system("aplay SoundFX/lose.wav");}
     this->scoreTotal=scoreNew;
 }
