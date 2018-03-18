@@ -463,6 +463,7 @@ Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the a
         if(index.data(Qt::DisplayRole)!=""){return Qt::ItemIsEnabled | Qt::ItemIsSelectable;}else{return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable;}
     case 1:
         //return Qt::ItemIsSelectable;
+        return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     case 2:
         //return Qt::ItemIsSelectable;
         if (typevalue==3)return Qt::ItemIsEnabled | Qt::ItemIsSelectable;

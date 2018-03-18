@@ -8,7 +8,6 @@
 #include <QFileDialog>
 #include <QLineEdit>
 #include <iostream>
-#include "checker.h"
 #include "scripteditdialog.h"
 MyDelegate::MyDelegate(QObject *parent)
 {
@@ -173,6 +172,16 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
              case 1:
                  break;
              case 2:
+                 {
+                     QMouseEvent * e = (QMouseEvent *)event;
+                     if (e->button()==Qt::RightButton)
+                     {
+                         QFileDialog opendialog(0, tr("Select File"));
+
+                         QString filename=opendialog.getOpenFileName(0,tr("Select Path"),model->data(index).toString());
+                         if (filename.length()>0)model->setData(index, filename);
+                     }
+                 }
                  break;
              case 3:
                  QMouseEvent * e = (QMouseEvent *)event;
