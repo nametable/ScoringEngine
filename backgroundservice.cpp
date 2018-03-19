@@ -37,4 +37,5 @@ void BackgroundService::setup()
 void BackgroundService::saveonexit()
 {
     saveConfigBIN(*this->runningconfig, "config.bin");
+    std::cout << "Config saved ... exiting\n";
 }
