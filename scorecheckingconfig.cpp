@@ -2,6 +2,7 @@
 #include <boost/serialization/nvp.hpp>
 #include <iostream>
 #include <fstream>
+#include <time.h>       /* time_t, struct tm, time, localtime, strftime */
 #include "boost/process.hpp"
 ScoreCheckingConfig::ScoreCheckingConfig()
 {
@@ -71,7 +72,21 @@ void ScoreCheckingConfig::GenerateScoreReport()
     int possibleIssues=0;
     int scoreNew=0;
     this->fixedTotal=0;
-    stringReport+="<center><h1>"+ this->Name +"</h1>\n";
+
+    //**** Get the current time and next score check time
+    time_t rawtime;
+    time_t nexttime;
+      struct tm * timeinfo;
+      char buffer [80];
+    time (&rawtime);
+    nexttime = rawtime + this->checkSeconds;
+    timeinfo = localtime (&nexttime);
+    //      Sep 5, 2018 15:37:25
+    strftime (buffer,80,"%b %d, %Y %T",timeinfo);
+    std::string stringtime(buffer);
+    //****
+
+    stringReport+="<center><h1>"+ this->Name +"</h1><h2 id=\"timeleft\">Checking ...</h2>";
     stringTable+="<table>";
     for (int i=0; i< this->vecScoreCheckers->size(); i++ )
     {
@@ -104,7 +119,8 @@ void ScoreCheckingConfig::GenerateScoreReport()
                   ""
                   ""
                   ""
-                  "<br><br><b>Copyright 2018 Logan Bateman</b></center>";
+                  "<br><br><b>Copyright 2018 Logan Bateman</b></center>"
+                  "<script> var countDownDate = new Date(\"" + stringtime +"\").getTime();var x = setInterval(function() {var now = new Date().getTime();var distance = countDownDate - now;if (distance <= 1000) {location.reload();};document.getElementById(\"timeleft\").innerHTML = \"Refresh in \" + (Math.floor(distance/1000)) + \" seconds\";}, 1000);</script>";
     fileout.open(this->Filename);
     fileout << stringReport;
     fileout.close();
