@@ -5,11 +5,9 @@ license:GPLv3
 
 Dependencies: QtCore, QtGUI, QtMultimedia, BoostFilesystem, BoostSerialization
 
-How to build.
+How to build. --doesn't build well yet (IMHO)
 
-cmake .
-make
-sudo make install
+qmake make
 
 notes:
 
