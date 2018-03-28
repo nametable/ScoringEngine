@@ -1,7 +1,7 @@
 Scoring Engine for CyberPatriot practice and similar.
 
 author: nametable
-license: proprietary at the moment
+license:GPLv3
 
 Dependencies: QtCore, QtGUI, QtMultimedia, BoostFilesystem, BoostSerialization
 
