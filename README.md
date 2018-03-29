@@ -22,3 +22,9 @@ git checkout v5.10.0
 perl init-repository --module-subset=qtbase
 ./configure -release -confirm-license -opensource -static -qt-zlib -qt-libpng -qt-libjpeg
 ```
+
+## Screenshots
+** Configuration **
+![Configuration Screenshot](configscreenshot.png?raw=true "Config Screenshot")
+** Reporting **
+![Report Screenshot](scorereportscreenshot.png?raw=true "Report Screenshot")
