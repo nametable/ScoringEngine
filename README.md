@@ -3,7 +3,7 @@ A system for practicing security skills on Linux distros
 ## Author: Logan Bateman
 ## License:GPLv3
 
-Dependencies: QtCore, QtGUI, QtMultimedia, BoostFilesystem, BoostSerialization
+Dependencies: QtCore, QtGUI, BoostFilesystem, BoostSerialization, BoostRegex
 
 How to build. --doesn't build well yet (IMHO)
 
@@ -24,7 +24,8 @@ perl init-repository --module-subset=qtbase
 ```
 
 ## Screenshots
-** Configuration **
+**Configuration**
 ![Configuration Screenshot](configscreenshot.png?raw=true "Config Screenshot")
-** Reporting **
+
+**Reporting**
 ![Report Screenshot](scorereportscreenshot.png?raw=true "Report Screenshot")
