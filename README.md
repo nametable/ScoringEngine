@@ -1,5 +1,5 @@
 # ScoringEngine
-A system for practicing security skills on Linux distros
+A system for practicing security skills on Linux distros. This can be useful for the CyberPatriot Competition, other security competitions, or personal use/practice.
 
 **Author: Logan Bateman**
 
