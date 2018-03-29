@@ -10,8 +10,10 @@
 ### Structure
 - [ ] Separate configuration tool from daemon (eliminate Qt dependency from daemon)
 - [ ] Create detailed documentation
+  - [ ] Create build documentation
+  - [ ] Create installation documentation
+  - [ ] Create usage documentation
 - [ ] Organize code and files for more modular use and less confusion
-
 ### Functionality
 - [ ] Add ability to install engine on system (service file, configuration, app) within tool
 - [ ] Add Compound scorechecker to check for multiple subissues in a single issue
