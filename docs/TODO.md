@@ -6,7 +6,7 @@
   - [ ] Compile Boost as static
   - [ ] Compile application
   - [ ] Create Distributable tar file with version number
-
+- [ ] Release binaries in tar.gz archives for use without end user compilation
 ### Structure
 - [ ] Separate configuration tool from daemon (eliminate Qt dependency from daemon)
 - [ ] Create detailed documentation
