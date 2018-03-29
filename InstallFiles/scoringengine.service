@@ -1,0 +1,12 @@
+[Unit]
+Description=Scoring Engine for practicing security skills on Linux Distros
+
+[Service]
+Type=simple
+ExecStart=/opt/ScoringEngine/ScoringEngineControl.sh start
+ExecStop=/opt/ScoringEngine/ScoringEngineControl.sh stop
+ExecReload=/opt/ScoringEngine/ScoringEngineControl.sh restart
+User=root
+
+[Install]
+WantedBy=multi-user.target
