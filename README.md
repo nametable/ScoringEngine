@@ -1,13 +1,16 @@
-Scoring Engine for CyberPatriot practice and similar.
+# Scoring Engine for CyberPatriot practice and similar.
 
-author: nametable
-license:GPLv3
+## Author: Logan Bateman
+## License:GPLv3
 
 Dependencies: QtCore, QtGUI, QtMultimedia, BoostFilesystem, BoostSerialization
 
 How to build. --doesn't build well yet (IMHO)
 
-qmake make
+```
+qmake
+make
+```
 
 notes:
 
