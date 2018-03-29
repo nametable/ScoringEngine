@@ -1,11 +1,13 @@
 # ScoringEngine
 A system for practicing security skills on Linux distros
-## Author: Logan Bateman
-## License:GPLv3
+
+**Author: Logan Bateman**
+
+**License: GPLv3**
 
 Dependencies: QtCore, QtGUI, BoostFilesystem, BoostSerialization, BoostRegex
 
-How to build. --doesn't build well yet (IMHO)
+How to build - Needs work. Eventually a configure script would be nice ([TODO List](docs/TODO.md))
 
 ```
 qmake
@@ -24,8 +26,5 @@ perl init-repository --module-subset=qtbase
 ```
 
 ## Screenshots
-**Configuration**
 ![Configuration Screenshot](configscreenshot.png?raw=true "Config Screenshot")
-
-**Reporting**
 ![Report Screenshot](scorereportscreenshot.png?raw=true "Report Screenshot")
