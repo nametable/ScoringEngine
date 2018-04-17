@@ -113,10 +113,11 @@ void MainWindow::on_actionSave_Config_triggered()
 {
     QString filename= QFileDialog::getSaveFileName(this, tr("Save Config"),0,tr("Binary Files (*.bin);;XML Files (*.xml)"));
     //
-    if (QFileInfo(filename).suffix()==".bin")
+    QString suffix = QFileInfo(filename).suffix();
+    if (QFileInfo(filename).suffix()=="bin")
     {
         saveConfigBIN(*config, filename.toStdString().c_str());
-    }else if (QFileInfo(filename).suffix()==".xml")
+    }else if (QFileInfo(filename).suffix()=="xml")
     {
         saveConfigXML(*config, filename.toStdString().c_str());
     }
@@ -127,7 +128,7 @@ void MainWindow::on_actionOpen_Config_triggered()
 {
 
     QString filename= QFileDialog::getOpenFileName(this, tr("Open Config"),0,tr("Binary Files (*.bin);;XML Files (*.xml)"));
-    if (QFileInfo(filename).suffix()==".bin")
+    if (QFileInfo(filename).suffix()=="bin")
     {
         delete this->config;
         this->config=new ScoreCheckingConfig();
@@ -135,7 +136,7 @@ void MainWindow::on_actionOpen_Config_triggered()
         scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
         scoringdelegate= new MyDelegate(this);
         this->SetupTable();
-    }else if (QFileInfo(filename).suffix()==".xml")
+    }else if (QFileInfo(filename).suffix()=="xml")
     {
         delete this->config;
         this->config=new ScoreCheckingConfig();
