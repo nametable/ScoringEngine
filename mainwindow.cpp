@@ -11,21 +11,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //confmen
     statusBar()->showMessage("Program loaded.");
-    //RunCommandScoreChecker testcheck;
-    //testcheck.setCommand("ls");
-    //testcheck.executeCommand();
-    //std::cout << testcheck.getCommandOutput();
-    //TestScoreCheckers();
 
     config= new ScoreCheckingConfig;
-    //config->vecScoreCheckers->push_back(new PathExistScoreChecker());
-    //config->vecScoreCheckers->push_back(new PathExistScoreChecker());
-    //config->vecScoreCheckers->push_back(new EmptyScoreChecker());
     scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
     scoringdelegate= new MyDelegate(this);
-    //scoringmodel->set
     SetupTable();
 
     timer= new QTimer(this);
@@ -35,16 +25,15 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::SetupTable()
 {
-    ui->mainTable->setModel(scoringmodel); //scoringmodel);
-    ui->mainTable->setItemDelegate(scoringdelegate);
-    //ui->mainTable->setEditTriggers(QAbstractItemView::AllEditTriggers);
+    ui->mainTable->setModel(this->scoringmodel);
+    ui->mainTable->setItemDelegate(this->scoringdelegate);
+
     QHeaderView *verticalHeader = ui->mainTable->verticalHeader();
+    QHeaderView *horizontalHeader = ui->mainTable->horizontalHeader();
     verticalHeader->setSectionResizeMode(QHeaderView::Fixed);
     verticalHeader->setDefaultSectionSize(30);
-    QHeaderView *horizontalHeader = ui->mainTable->horizontalHeader();
-    //horizontalHeader->setSectionResizeMode(QHeaderView::Fixed);
+
     horizontalHeader->setDefaultSectionSize(60);
-    //ui->mainTable->setHorizontalHeader(QHeaderView());
 }
 MainWindow::~MainWindow()
 {
@@ -58,11 +47,13 @@ void MainWindow::on_actionExit_triggered()
 }
 void MainWindow::on_actionInsert_Blank_triggered()
 {
-    //this->ui->mainTable->dataChanged(this->scoringmodel->index(this->config->vecScoreCheckers->size()-1, 0, QModelIndex()),this->scoringmodel->index(this->config->vecScoreCheckers->size()-1, 6, QModelIndex()));
-    //this->config->vecScoreCheckers->push_back(new EmptyScoreChecker());
-    //scoringmodel->refresh(this->config->vecScoreCheckers->size()-1);
+    //Adds an EmptyScoreChecker() via the model
     scoringmodel->insertChecker(new EmptyScoreChecker());
 }
+//***************
+//  Don't run this code --- please
+//  Just a test...
+//
 void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
 {
     ScoreCheckingConfig configtosave;
@@ -111,32 +102,49 @@ void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
     std::cout << "SCript" << std::endl << static_cast<ScriptScoreChecker*>(config->vecScoreCheckers->at(3))->getScript() << std::endl;
     //this->on_actionOpen_Config_triggered();
 }
-
+//Shows the preferences window
 void MainWindow::on_actionConfiguration_Prefs_triggered()
 {
     ConfigPropertiesWindow *confmenu= new ConfigPropertiesWindow(0,this->config);
     confmenu->show();
 }
-
+//Saves current config
 void MainWindow::on_actionSave_Config_triggered()
 {
-    QFileDialog savedialog(0, tr("Save Config"));
+    QString filename= QFileDialog::getSaveFileName(this, tr("Save Config"),0,tr("Binary Files (*.bin);;XML Files (*.xml)"));
+    //
+    if (QFileInfo(filename).suffix()==".bin")
+    {
+        saveConfigBIN(*config, filename.toStdString().c_str());
+    }else if (QFileInfo(filename).suffix()==".xml")
+    {
+        saveConfigXML(*config, filename.toStdString().c_str());
+    }
 
-    QString filename=savedialog.getSaveFileName(0,tr("Save Config"),tr("*.bin"));
-    saveConfigBIN(*config, filename.toStdString().c_str());
 }
 
 void MainWindow::on_actionOpen_Config_triggered()
 {
-    QFileDialog opendialog(0, tr("Open Config"));
 
-    QString filename=opendialog.getOpenFileName(0,tr("Open Config"),tr("*.bin"));
-    delete this->config;
-    this->config=new ScoreCheckingConfig();
-    loadConfigBIN(*config, filename.toStdString().c_str());
-    scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
-    scoringdelegate= new MyDelegate(this);
-    this->SetupTable();
+    QString filename= QFileDialog::getOpenFileName(this, tr("Open Config"),0,tr("Binary Files (*.bin);;XML Files (*.xml)"));
+    if (QFileInfo(filename).suffix()==".bin")
+    {
+        delete this->config;
+        this->config=new ScoreCheckingConfig();
+        loadConfigBIN(*config, filename.toStdString().c_str());
+        scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
+        scoringdelegate= new MyDelegate(this);
+        this->SetupTable();
+    }else if (QFileInfo(filename).suffix()==".xml")
+    {
+        delete this->config;
+        this->config=new ScoreCheckingConfig();
+        loadConfigXML(*config, filename.toStdString().c_str());
+        scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
+        scoringdelegate= new MyDelegate(this);
+        this->SetupTable();
+    }
+
 }
 void MainWindow::scoreupdate()
 {

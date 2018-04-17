@@ -26,6 +26,8 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+//catch a quit signal for ending gracefully
 void catchUnixSignals(std::initializer_list<int> quitSignals) {
     auto handler = [](int sig) -> void {
         // blocking and not aysnc-signal-safe func are valid
