@@ -9,6 +9,7 @@
 - [ ] Release binaries in tar.gz archives for use without end user compilation
 ### Structure
 - [ ] Separate configuration tool from daemon (eliminate Qt dependency from daemon)
+  - [ ] Use non qt timer loop (https://www.boost.org/doc/libs/1_67_0/doc/html/boost_asio/tutorial/tuttimer3/src.html)
 - [ ] Create detailed documentation
   - [ ] Create build documentation
   - [ ] Create installation documentation
@@ -26,10 +27,13 @@
   - [ ] Allow rearranging issues
   - [ ] Allow copying/cutting and pasting issues
 - [ ] Create mechanism for loading templates into the configuration tool
-- [ ] Allow export of configuration in both binary and xml format (more later hopefully: json, etc)
+- [X] Allow export of configuration in both binary and xml format (more later hopefully: json, etc)
 - [ ] Create file or mechanism with important variables like app version and text
   - [ ] Make the global variable for version
   - [ ] Make translation easier
 - [ ] Integrate with other tools for generating an image (Ubuntu, Fedora, Arch, etc) using templates
 - [ ] Setup notify-send popup for gain or loss of points
 - [ ] Replace aplay with static library to remove dependency
+### Aesthetics
+- [ ] Change the name of ScoringEngine to something better...
+- [ ] Add a splash screen to the GUI editor
