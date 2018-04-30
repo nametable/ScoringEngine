@@ -27,6 +27,12 @@ void MainWindow::SetupTable()
 {
     ui->mainTable->setModel(this->scoringmodel);
     ui->mainTable->setItemDelegate(this->scoringdelegate);
+    ui->mainTable->setDragEnabled(true);
+    ui->mainTable->setDropIndicatorShown(true);
+    ui->mainTable->setDragDropMode(QAbstractItemView::InternalMove);
+    ui->mainTable->setDragDropOverwriteMode(false);
+    //leftTableView->setDragDropMode(QAbstractItemView::DragOnly);
+    //ui->mainTable->setDragDropMode(QAbstractItemView:: InternalMove);
 
     QHeaderView *verticalHeader = ui->mainTable->verticalHeader();
     QHeaderView *horizontalHeader = ui->mainTable->horizontalHeader();
