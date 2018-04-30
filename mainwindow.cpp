@@ -29,7 +29,7 @@ void MainWindow::SetupTable()
     ui->mainTable->setItemDelegate(this->scoringdelegate);
     ui->mainTable->setDragEnabled(true);
     ui->mainTable->setDropIndicatorShown(true);
-    ui->mainTable->setDragDropMode(QAbstractItemView::InternalMove);
+    ui->mainTable->setDragDropMode(QAbstractItemView::DragDrop);
     ui->mainTable->setDragDropOverwriteMode(false);
     //leftTableView->setDragDropMode(QAbstractItemView::DragOnly);
     //ui->mainTable->setDragDropMode(QAbstractItemView:: InternalMove);
