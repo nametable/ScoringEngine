@@ -19,10 +19,14 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     Qt::ItemFlags flags(const QModelIndex &index) const;
+    void sort(int column, Qt::SortOrder order);
     void refresh(int column);
     void insertChecker(BaseScoreChecker *checker);
 private:
     std::vector<BaseScoreChecker*> *vecScoreCheckers;
 };
-
+bool sortByType(BaseScoreChecker* a, BaseScoreChecker* b);
+bool sortByDescription(BaseScoreChecker* a, BaseScoreChecker* b);
+bool sortByPoints(BaseScoreChecker* a, BaseScoreChecker* b);
+bool sortBySolved(BaseScoreChecker* a, BaseScoreChecker* b);
 #endif // MYSCORINGMODEL_H

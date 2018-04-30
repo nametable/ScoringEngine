@@ -491,3 +491,41 @@ void MyScoringModel::insertChecker(BaseScoreChecker *checker)
     this->endInsertRows();
 
 }
+
+void MyScoringModel::sort(int column, Qt::SortOrder order)
+{
+    std::cerr << "Sorting column" << column << "...\n";
+    switch (column)
+    {
+    case 0:
+        std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortByType);
+        break;
+    case 1:
+        std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortByDescription);
+        break;
+    case 5:
+        std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortByPoints);
+        break;
+    case 6:
+        std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortBySolved);
+        break;
+    }
+    // do nothing
+}
+
+bool sortByType(BaseScoreChecker *a, BaseScoreChecker *b)
+{
+    return a->getCheckerType() > b->getCheckerType();
+}
+bool sortByDescription(BaseScoreChecker *a, BaseScoreChecker *b)
+{
+    return a->getDescription() > b->getDescription();
+}
+bool sortByPoints(BaseScoreChecker *a, BaseScoreChecker *b)
+{
+    return a->getPoints() > b->getPoints();
+}
+bool sortBySolved(BaseScoreChecker *a, BaseScoreChecker *b)
+{
+    return a->getState() > b->getState();
+}
