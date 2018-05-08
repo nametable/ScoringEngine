@@ -22,6 +22,7 @@ public:
     void sort(int column, Qt::SortOrder order);
     void refresh(int column);
     void insertChecker(BaseScoreChecker *checker);
+    void removeCheckers(QModelIndexList indexlist);
 private:
     std::vector<BaseScoreChecker*> *vecScoreCheckers;
 };

@@ -9,6 +9,7 @@
 #include "mydelegate.h"
 #include "scorecheckingconfig.h"
 #include <QStandardItemModel>
+#include <QItemSelectionModel>
 #include <vector>
 #include <QTimer>
 namespace Ui {
@@ -38,6 +39,8 @@ private slots:
     void on_actionTimer_Start_toggled(bool arg1);
 
     void on_actionNew_Config_triggered();
+
+    void on_actionDelete_triggered();
 
 private:
     Ui::MainWindow *ui;

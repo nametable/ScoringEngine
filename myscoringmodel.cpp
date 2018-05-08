@@ -462,7 +462,7 @@ Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the a
     switch (index.column())
     {
     case 0:
-        if(index.data(Qt::DisplayRole)!=""){return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;}else{return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;}
+        if(index.data(Qt::DisplayRole)!=""){return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}else{return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}
     case 1:
         //return Qt::ItemIsSelectable;
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
@@ -491,7 +491,21 @@ void MyScoringModel::insertChecker(BaseScoreChecker *checker)
     this->endInsertRows();
 
 }
+void MyScoringModel::removeCheckers(QModelIndexList indexlist)
+{
+    QModelIndex index;
+    int a=0;
+     foreach(index, indexlist) {
+         this->beginRemoveRows(QModelIndex(),index.row()+a,index.row()+a);
+         this->vecScoreCheckers->erase(vecScoreCheckers->begin()+index.row()+a);
+         this->endRemoveRows();
+         a--;
+     }
+     //this->removeRow(index.row(),index);
+     //this->vecScoreCheckers->shrink_to_fit();
 
+     std::cerr << this->vecScoreCheckers->size() << " scorecheckers remain.\n";
+}
 void MyScoringModel::sort(int column, Qt::SortOrder order)
 {
     std::cerr << "Sorting column" << column << "...\n";
@@ -510,7 +524,8 @@ void MyScoringModel::sort(int column, Qt::SortOrder order)
         std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortBySolved);
         break;
     }
-    // do nothing
+    //reverse if order changed
+    if (order==Qt::SortOrder::AscendingOrder)std::reverse(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end());
 }
 
 bool sortByType(BaseScoreChecker *a, BaseScoreChecker *b)

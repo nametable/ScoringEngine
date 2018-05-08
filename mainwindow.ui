@@ -87,7 +87,7 @@
      <x>0</x>
      <y>0</y>
      <width>503</width>
-     <height>28</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -108,6 +108,7 @@
     <addaction name="separator"/>
     <addaction name="actionConfiguration_Prefs"/>
     <addaction name="actionTimer_Start"/>
+    <addaction name="actionDelete"/>
    </widget>
    <widget class="QMenu" name="menuCheckers">
     <property name="title">
@@ -162,6 +163,11 @@
    </property>
    <property name="text">
     <string>Timer Toggle</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete</string>
    </property>
   </action>
  </widget>

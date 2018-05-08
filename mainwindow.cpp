@@ -176,3 +176,14 @@ void MainWindow::on_actionNew_Config_triggered()
     }
 
 }
+
+void MainWindow::on_actionDelete_triggered()
+{
+    QItemSelectionModel *select = ui->mainTable->selectionModel();
+
+    if (select->hasSelection())
+    {
+        //Removes selected scorecheckers via the model
+        scoringmodel->removeCheckers(select->selectedRows());
+    }
+}
