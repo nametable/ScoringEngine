@@ -30,34 +30,3 @@ bool PathExistScoreChecker::getDesireExist()
     return this->desireExist;
 }
 
-/*
-static QWidget * PathExistScoreChecker::createEditor(QWidget *parent, QStyleOptionViewItem &option,
-                      QModelIndex &index)
-{
-
-}
-
-static void PathExistScoreChecker::setEditorData(QWidget *editor, QModelIndex &index)
-{
-
-}
-static void PathExistScoreChecker::setModelData(QWidget *editor, QAbstractItemModel *model,
-                  QModelIndex &index)
-{
-
-}
-
-static void PathExistScoreChecker::updateEditorGeometry(QWidget *editor, QStyleOptionViewItem &option, QModelIndex &index)
-{
-
-}
-static void PathExistScoreChecker::paint(QPainter * painter, QStyleOptionViewItem & option, QModelIndex & index)
-{
-
-}
-static bool PathExistScoreChecker::editorEvent(QEvent *event, QAbstractItemModel *model, QStyleOptionViewItem &option, QModelIndex &index)
-{
-
-}
-*/
-

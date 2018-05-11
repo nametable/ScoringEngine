@@ -37,7 +37,8 @@ SOURCES += \
     scriptscorechecker.cpp \
     configpropertieswindow.cpp \
     scripteditdialog.cpp \
-    backgroundservice.cpp
+    backgroundservice.cpp \
+    templatescorechecker.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -52,7 +53,8 @@ HEADERS += \
     scriptscorechecker.h \
     configpropertieswindow.h \
     scripteditdialog.h \
-    backgroundservice.h
+    backgroundservice.h \
+    templatescorechecker.h
 
 FORMS += \
         mainwindow.ui \
