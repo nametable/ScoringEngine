@@ -16,6 +16,16 @@ make
 
 Notes:
 
+Building Static Boost
+```
+wget -c https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.bz2
+tar -xjf boost_1_67_0.tar.bz2
+cd boost_1_67_0
+./bootstrap.sh
+./b2 --stagedir=boost-lin-64 --with-serialization --with-filesystem --with-system --with-regex release
+cd ..
+```
+
 QtBuild
 ```
 git clone https://code.qt.io/qt/qt5.git qt5
