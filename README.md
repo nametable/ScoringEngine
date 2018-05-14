@@ -27,7 +27,7 @@ cd ..
 ```
 
 QtBuild
-``
+```
 #Dependencies for Ubuntu
 sudo apt-get build-dep qt5-default
 sudo apt-get install libxcb-xinerama0-dev 
