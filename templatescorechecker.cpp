@@ -9,10 +9,11 @@ TemplateScoreChecker::TemplateScoreChecker()
 void TemplateScoreChecker::checkState() //loop through checkers
 {
     bool state=true;
-    for (BaseScoreChecker checker:this->vecScoreCheckers)
+
+    for (int i=0;i< this->vecScoreCheckers->size(); i++)
     {
-        checker.checkState();
-        state = (state == checker.getState());
+        this->vecScoreCheckers->at(i)->checkState();
+        state = (state == this->vecScoreCheckers->at(i)->getState());
     }
     this->state=state;
 }

@@ -28,8 +28,33 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>TextLabel</string>
+          <string>Script Type</string>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <property name="minimumSize">
+          <size>
+           <width>125</width>
+           <height>0</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>bash (Linux)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>batch (Windows)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>powershell (Windows)</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>

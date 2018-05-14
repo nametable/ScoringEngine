@@ -38,7 +38,8 @@ SOURCES += \
     configpropertieswindow.cpp \
     scripteditdialog.cpp \
     backgroundservice.cpp \
-    templatescorechecker.cpp
+    templatescorechecker.cpp \
+    templateeditwindow.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,12 +55,14 @@ HEADERS += \
     configpropertieswindow.h \
     scripteditdialog.h \
     backgroundservice.h \
-    templatescorechecker.h
+    templatescorechecker.h \
+    templateeditwindow.h
 
 FORMS += \
         mainwindow.ui \
     configpropertieswindow.ui \
-    scripteditdialog.ui
+    scripteditdialog.ui \
+    templateeditwindow.ui
 
 !debug {
     INCLUDEPATH += /home/logan/Documents/Libraries/boost_1_65_1

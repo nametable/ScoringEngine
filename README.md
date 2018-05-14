@@ -27,6 +27,13 @@ cd ..
 ```
 
 QtBuild
+``
+#Dependencies for Ubuntu
+sudo apt-get build-dep qt5-default
+sudo apt-get install libxcb-xinerama0-dev 
+sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev
+#For other systems dependencies are listed at https://wiki.qt.io/Building_Qt_5_from_Git
+```
 ```
 git clone https://code.qt.io/qt/qt5.git qt5
 cd qt5
@@ -34,6 +41,7 @@ git checkout v5.10.0
 perl init-repository --module-subset=qtbase
 ./configure -prefix ../qt5-static/ -release -opensource -confirm-license -static -no-sql-mysql -no-sql-psql -no-sql-sqlite -no-icu -no-journald -qt-zlib -no-mtdev -no-gif -qt-libpng -qt-libjpeg -qt-freetype -qt-harfbuzz -no-openssl -qt-pcre -qt-xcb -no-glib -no-egl -qt-xkbcommon -qt-xkbcommon-x11 -xkb-config-root /usr/share/X11/xkb -no-compile-examples -no-cups -no-iconv -no-tslib -qt-xcb -no-xcb-xlib -no-eglfs -no-directfb -no-linuxfb -no-kms -no-opengl -nomake examples -nomake tests -skip qtwebsockets -skip qtwebchannel -skip qtwebengine -skip qtwayland -skip qtwinextras -skip qtsvg -skip qtsensors -skip qtcanvas3d -skip qtconnectivity -skip declarative -skip quick1 -no-libproxy -no-opengl -no-openvg -no-libjpeg
 ```
+
 
 ## Screenshots
 ![Configuration Screenshot](configscreenshot.png?raw=true "Config Screenshot")
