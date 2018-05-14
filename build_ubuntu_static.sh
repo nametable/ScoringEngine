@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "Installing Build dependencies"
 #Dependencies for Ubuntu
-sudo apt install g++
-sudo apt-get build-dep qt5-default
-sudo apt-get install libxcb-xinerama0-dev libfontconfig1-dev
-sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev
+sudo apt -y install g++
+sudo apt-get -y build-dep qt5-default
+sudo apt-get -y install libxcb-xinerama0-dev libfontconfig1-dev libfreetype6-dev
+sudo apt-get -y install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev
 #For other systems dependencies are listed at https://wiki.qt.io/Building_Qt_5_from_Git
 echo "Building dependencies..."
 echo "Building Boost"
