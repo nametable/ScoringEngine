@@ -5,7 +5,9 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <signal.h>
+#ifdef __linux__
 void catchUnixSignals(std::initializer_list<int> quitSignals);
+#endif
 int main(int argc, char *argv[])
 {
     #ifdef _WIN32
@@ -20,7 +22,9 @@ int main(int argc, char *argv[])
     {
         if (std::string(argv[1])=="--background")
         {
+            #ifdef __linux__
             catchUnixSignals({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
+            #endif
             BackgroundService bkserv(argc,argv);
             bkserv.LoadConfig("config.bin");
             bkserv.Run();
@@ -34,7 +38,7 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
-
+#ifdef __linux__
 //catch a quit signal for ending gracefully
 void catchUnixSignals(std::initializer_list<int> quitSignals) {
     auto handler = [](int sig) -> void {
@@ -56,3 +60,4 @@ void catchUnixSignals(std::initializer_list<int> quitSignals) {
     for (auto sig : quitSignals)
         sigaction(sig, &sa, nullptr);
 }
+#endif
