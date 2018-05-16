@@ -1,5 +1,8 @@
 #include "scriptscorechecker.h"
 #include "boost/filesystem.hpp"
+#ifdef __linux__
+#include "boost/process.hpp"
+#endif
 ScriptScoreChecker::ScriptScoreChecker()
 {
     this->description="Run script and parse output";
@@ -32,6 +35,7 @@ bool ScriptScoreChecker::getDesiredState()
 }
 void ScriptScoreChecker::checkState()
 {
+
     this->execute();
     boost::regex expression(this->searchString);
     this->state=(boost::regex_search(this->getOutput(),expression,boost::match_any)==this->desiredState); //logical xnor
@@ -66,10 +70,17 @@ void ScriptScoreChecker::execute()
         ofs.close();
     }else{std::cerr << "bash.sh already exists- FIX!" << std::endl;} //error if there is already a file
 
+#ifdef _WIN32
     if (ScriptExtension==".sh")exec(std::string("chmod +x " + sfilename).c_str()); //make script executable
-    //if (ScriptExtension==".sh")boost::process::system("chmod +x " + sfilename); //make script executable
 
     this->scriptOutput= exec(sfilename.c_str());
+#elif __linux__
+    if (ScriptExtension==".sh")boost::process::system("chmod +x " + sfilename); //make script executable
+
+    boost::process::ipstream output;
+    boost::process::system(sfilename, boost::process::std_out > output);
+    this->scriptOutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
+#endif
 
     boost::filesystem::remove_all(sfilename); //removes the script now that execution is done
 }
