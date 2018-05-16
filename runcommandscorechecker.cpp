@@ -1,5 +1,7 @@
 #include "runcommandscorechecker.h"
+#ifdef __linux__
 #include <boost/process.hpp>
+#endif
 RunCommandScoreChecker::RunCommandScoreChecker()
 {
     this->description="Command Output Checker";
@@ -20,6 +22,7 @@ std::string RunCommandScoreChecker::getCommandOutput()
 }
 void RunCommandScoreChecker::executeCommand()
 {
+#ifdef __linux__
     //INSERT BOOST CODE HERE
     boost::process::ipstream output;
     std::string output1;
@@ -27,6 +30,7 @@ void RunCommandScoreChecker::executeCommand()
     //output.
     this->commandoutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
     //this->commandoutput= output.
+#endif
 }
 void RunCommandScoreChecker::checkState()
 {
