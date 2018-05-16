@@ -8,6 +8,14 @@
 void catchUnixSignals(std::initializer_list<int> quitSignals);
 int main(int argc, char *argv[])
 {
+    #ifdef _WIN32
+    #define _WIN32_WINNT 0x0502
+    #include <windows.h>
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
+    }
+    #endif
     if (argc>=2) //two or more arguments
     {
         if (std::string(argv[1])=="--background")

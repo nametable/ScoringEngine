@@ -43,6 +43,10 @@ void MainWindow::SetupTable()
 }
 MainWindow::~MainWindow()
 {
+    delete config;
+    delete scoringmodel;
+    delete scoringdelegate;
+    delete timer;
     delete ui;
 }
 

@@ -1,6 +1,5 @@
 #include "scriptscorechecker.h"
 #include "boost/filesystem.hpp"
-#include "boost/process.hpp"
 ScriptScoreChecker::ScriptScoreChecker()
 {
     this->description="Run script and parse output";
@@ -67,11 +66,10 @@ void ScriptScoreChecker::execute()
         ofs.close();
     }else{std::cerr << "bash.sh already exists- FIX!" << std::endl;} //error if there is already a file
 
-    if (ScriptExtension==".sh")boost::process::system("chmod +x " + sfilename); //make script executable
+    if (ScriptExtension==".sh")exec(std::string("chmod +x " + sfilename).c_str()); //make script executable
+    //if (ScriptExtension==".sh")boost::process::system("chmod +x " + sfilename); //make script executable
 
-    boost::process::ipstream output;
-    boost::process::system(sfilename, boost::process::std_out > output);
-    this->scriptOutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
+    this->scriptOutput= exec(sfilename.c_str());
 
     boost::filesystem::remove_all(sfilename); //removes the script now that execution is done
 }
