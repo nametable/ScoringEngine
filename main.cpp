@@ -10,7 +10,7 @@ void catchUnixSignals(std::initializer_list<int> quitSignals);
 #endif
 int main(int argc, char *argv[])
 {
-    #ifdef _WIN32
+    #ifdef DONTRUN
     #define _WIN32_WINNT 0x0502
     #include <windows.h>
     if (AttachConsole(ATTACH_PARENT_PROCESS)) {
