@@ -10,8 +10,8 @@ class TemplateScoreChecker : public BaseScoreChecker
     {
         // save/load base class information
         ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(BaseScoreChecker);
-        ar & BOOST_SERIALIZATION_NVP(vecScoreCheckers);
-
+        ar & BOOST_SERIALIZATION_NVP(desiredState)
+                & BOOST_SERIALIZATION_NVP(vecScoreCheckers);
     }
 protected:
     std::vector<BaseScoreChecker*> *vecBakedScoreCheckers;

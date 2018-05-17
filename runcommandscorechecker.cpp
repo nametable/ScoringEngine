@@ -7,6 +7,7 @@ RunCommandScoreChecker::RunCommandScoreChecker()
     this->description="Command Output Checker";
     this->points=1;
     this->checkerType="RunCommand";
+    this->bSearchstringexist=true;
 }
 void RunCommandScoreChecker::setCommand(std::string command)
 {

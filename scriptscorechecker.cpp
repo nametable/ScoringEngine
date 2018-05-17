@@ -8,6 +8,7 @@ ScriptScoreChecker::ScriptScoreChecker()
     this->description="Run script and parse output";
     this->points=1;
     this->checkerType="RunScript";
+    this->desiredState=true;
 }
 void ScriptScoreChecker::setScript(std::string script)
 {

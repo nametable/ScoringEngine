@@ -6,6 +6,7 @@ TemplateScoreChecker::TemplateScoreChecker()
     this->vecBakedScoreCheckers= new std::vector<BaseScoreChecker *>;
     this->description="Template checker";
     this->points=1;
+    this->desiredState=true;
     this->checkerType="Template";
 }
 void TemplateScoreChecker::checkState() //loop through checkers
