@@ -56,7 +56,8 @@ HEADERS += \
     scripteditdialog.h \
     backgroundservice.h \
     templatescorechecker.h \
-    templateeditwindow.h
+    templateeditwindow.h \
+    version.h
 
 FORMS += \
         mainwindow.ui \

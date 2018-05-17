@@ -5,6 +5,8 @@
 #include "runcommandscorechecker.h"
 #include "emptyscorechecker.h"
 #include "configpropertieswindow.h"
+#include "QMessageBox"
+#include "version.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -190,4 +192,9 @@ void MainWindow::on_actionDelete_triggered()
         //Removes selected scorecheckers via the model
         scoringmodel->removeCheckers(select->selectedRows());
     }
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, QString("About ScoringEngine"),QString(std::string("ScoringEngine\nCopyright 2018 by Logan Bateman\nVersion " + std::to_string(VERSION_MAJOR) + "." + std::to_string(VERSION_MINOR) + "." + std::to_string(VERSION_PATCH)).c_str()));
 }
