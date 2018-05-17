@@ -28,4 +28,4 @@ sed -i '/INCLUDEPATH/c INCLUDEPATH += ../boost_1_67_0/' ScoringEngine.pro
 sed -i '/LIBS += -L/c LIBS += -L../boost_1_67_0/boost-lin-64/lib -l:libboost_filesystem.a -l:libboost_system.a -l:libboost_serialization.a -l:libboost_regex.a' ScoringEngine.pro
 sed -i '/!debug {/c release {' ScoringEngine.pro
 ../qt5/qtbase/bin/qmake
-make release
+make
