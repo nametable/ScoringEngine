@@ -7,11 +7,19 @@ A system for practicing security skills on Linux distros. This can be useful for
 
 Dependencies: QtCore, QtGUI, BoostFilesystem, BoostSerialization, BoostRegex
 
-How to build - Needs work. Eventually a configure script would be nice ([TODO List](docs/TODO.md))
+How to build statically in docker - Needs work. Eventually a configure script would be nice ([TODO List](docs/TODO.md))
+
 
 ```
-qmake
-make
+#This will build download/build all dependencies and then build ScoringEngine statically for use almost anywhere
+#If you already have a docker container for ubuntu 14, run it with "docker start {container}" and run bash with "docker exec -it {container} /bin/bash
+docker run -it ubuntu:14.04
+cd
+git clone https://github.com/nametable/ScoringEngine.git
+cd ScoringEngine
+./build_ubuntu_static.sh
+exit
+docker cp {container}:/root/ScoringEngine/ScoringEngine /{where ever you want it locally}
 ```
 
 Notes:
