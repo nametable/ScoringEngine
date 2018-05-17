@@ -2,7 +2,7 @@
 #define TEMPLATEEDITWINDOW_H
 
 #include <QDialog>
-
+#include "templatescorechecker.h"
 namespace Ui {
 class TemplateEditWindow;
 }
@@ -13,8 +13,10 @@ class TemplateEditWindow : public QDialog
 
 public:
     explicit TemplateEditWindow(QWidget *parent = 0);
+    explicit TemplateEditWindow(QWidget *parent = 0, TemplateScoreChecker* scorechecker=0);
     ~TemplateEditWindow();
-
+protected:
+    TemplateScoreChecker * scorechecker;
 private:
     Ui::TemplateEditWindow *ui;
 };

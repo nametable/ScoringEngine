@@ -41,6 +41,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             if (vecScoreCheckers->at(index.row())->getCheckerType()=="ValueCheck")return 2;
             if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunScript")return 3;
             if (vecScoreCheckers->at(index.row())->getCheckerType()=="Compound")return 4;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="Template")return 5;
             //return QString(vecScoreCheckers->at(index.row())->getCheckerType().c_str());
             break;
         }
@@ -99,6 +100,18 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             }
             break;
         case 4: //CompoundCheck
+            break;
+        case 5: //TemplateCheck
+            if (role==Qt::EditRole | Qt::DisplayRole)return QVariant::fromValue<TemplateScoreChecker*>(static_cast<TemplateScoreChecker*>(vecScoreCheckers->at(index.row())));
+            switch(role)
+            {
+            case Qt::DisplayRole:
+            case Qt::EditRole:
+                //return QString(static_cast<ValueScoreChecker*>(vecScoreCheckers->at(index.row()))->getFilepath().c_str());
+                //button for editing script will be here
+                return tr("RtClick to Edit");
+                break;
+            }
             break;
         }
         break;
@@ -178,6 +191,23 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             break;
         case 4: //CompoundCheck
             break;
+        case 5: //TemplateCheck
+            switch(role)
+            {
+            case Qt::DisplayRole:
+                if (static_cast<TemplateScoreChecker*>(vecScoreCheckers->at(index.row()))->getDesiredState())
+                {
+                    return QString("Exist");
+                }else
+                {
+                    return QString("!Exist");
+                }
+                break;
+            case Qt::EditRole:
+                return static_cast<TemplateScoreChecker*>(vecScoreCheckers->at(index.row()))->getDesiredState();
+                break;
+            }
+            break;
         }
         break;
     case 4: //ScoreChecker Opt3
@@ -227,6 +257,14 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
             case Qt::DisplayRole:
             case Qt::EditRole:
                 return QString("UNK");
+                break;
+            }
+        case 5: //TemplateCheck
+            switch(role)
+            {
+            case Qt::DisplayRole:
+            case Qt::EditRole:
+                return QString("Unused");
                 break;
             }
             break;
@@ -341,6 +379,9 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
             case 4: //CompoundCheck
                 //vecScoreCheckers->at(index.row())=new PathExistScoreChecker();
                 break;
+            case 5: //TemplateCheck
+                vecScoreCheckers->at(index.row())=new TemplateScoreChecker();
+                break;
             }
             break;
         }
@@ -376,6 +417,8 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
             case 4: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
                 break;
+            case 5: //TemplateCheck
+                break;
             }
 
             break;
@@ -403,6 +446,9 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
                 break;
             case 4: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
+                break;
+            case 5: //TemplateCheck
+                static_cast<TemplateScoreChecker*>(basecheck)->setDesiredState(value.toBool());
                 break;
             }
              break;
@@ -462,7 +508,8 @@ Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the a
     switch (index.column())
     {
     case 0:
-        if(index.data(Qt::DisplayRole)!=""){return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}else{return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}
+        //if(index.data(Qt::DisplayRole)!=""){return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}else{return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}
+        return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;
     case 1:
         //return Qt::ItemIsSelectable;
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;

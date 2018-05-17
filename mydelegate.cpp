@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <iostream>
 #include "scripteditdialog.h"
+#include "templateeditwindow.h"
 MyDelegate::MyDelegate(QObject *parent)
 {
 }
@@ -25,11 +26,13 @@ QWidget * MyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &
     case 0:
         //checker[0]->
         //break;
-        if(index.data(Qt::DisplayRole)!="")break;
+        //if(index.data(Qt::DisplayRole)!="")break;
         combo->addItem(tr("Path Exist"));
         combo->addItem(tr("Command Output"));
         combo->addItem(tr("Value"));
         combo->addItem(tr("Script"));
+        combo->addItem(tr("Compound - not working"));
+        combo->addItem(tr("Template - beta"));
         combo->setCurrentIndex(0);
         return combo;
         break;
@@ -184,17 +187,28 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
                  }
                  break;
              case 3:
+                 {
+                     QMouseEvent * e = (QMouseEvent *)event;
+                     if (e->button()==Qt::RightButton)
+                     {
+                         ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole | Qt::DisplayRole).toString().toStdString() );
+                         scriptedit->exec();
+                         //model->data(index, Qt::EditRole)
+                         if (scriptedit->getScript()!="")model->setData(index, scriptedit->getScript().c_str());
+                     }
+                 }
+                 break;
+             case 5: //TemplateChecker
                  QMouseEvent * e = (QMouseEvent *)event;
                  if (e->button()==Qt::RightButton)
                  {
-                     ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole | Qt::DisplayRole).toString().toStdString() );
-                     scriptedit->exec();
+                     TemplateEditWindow *templatewindow=new TemplateEditWindow(0,model->data(index, Qt::EditRole | Qt::DisplayRole).value<TemplateScoreChecker*>() );
+                     templatewindow->exec();
                      //model->data(index, Qt::EditRole)
-                     if (scriptedit->getScript()!="")model->setData(index, scriptedit->getScript().c_str());
+                     //if (scriptedit->getScript()!="")model->setData(index, scriptedit->getScript().c_str());
                  }
                  break;
              }
-
              break;
          case 6:
 

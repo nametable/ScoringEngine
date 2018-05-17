@@ -7,7 +7,13 @@ TemplateEditWindow::TemplateEditWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 }
-
+TemplateEditWindow::TemplateEditWindow(QWidget *parent, TemplateScoreChecker * scorechecker ) :
+    QDialog(parent),
+    ui(new Ui::TemplateEditWindow)
+{
+    ui->setupUi(this);
+    this->scorechecker=scorechecker;
+}
 TemplateEditWindow::~TemplateEditWindow()
 {
     delete ui;
