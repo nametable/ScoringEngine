@@ -72,4 +72,6 @@ public:
     virtual void checkState()=0; //Pure Virtual - run code to see if issue has been resolved
 };
 //BOOST_SERIALIZATION_ASSUME_ABSTRACT(BaseScoreChecker)
+std::string exec(const char* cmd);
+
 #endif // BASESCORECHECKER_H

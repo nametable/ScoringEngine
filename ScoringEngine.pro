@@ -64,10 +64,10 @@ FORMS += \
     scripteditdialog.ui \
     templateeditwindow.ui
 
-!debug {
-    INCLUDEPATH += /home/logan/Documents/Libraries/boost_1_65_1
+release {
+INCLUDEPATH += ../boost_1_67_0/
 
-    LIBS += -L/home/logan/Documents/Libraries/boost_1_65_1/stage-lin-64/lib -l:libboost_filesystem.a -l:libboost_system.a -l:libboost_serialization.a -l:libboost_regex.a
+LIBS += -L../boost_1_67_0/boost-lin-64/lib -l:libboost_filesystem.a -l:libboost_system.a -l:libboost_serialization.a -l:libboost_regex.a
 }
 debug {
     LIBS += -lboost_filesystem -lboost_system -lboost_serialization -lboost_regex

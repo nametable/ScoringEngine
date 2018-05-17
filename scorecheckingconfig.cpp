@@ -3,7 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include <time.h>       /* time_t, struct tm, time, localtime, strftime */
+#ifdef __linux__
 #include "boost/process.hpp"
+#endif
 ScoreCheckingConfig::ScoreCheckingConfig()
 {
     vecScoreCheckers= new std::vector<BaseScoreChecker *>;
@@ -124,7 +126,9 @@ void ScoreCheckingConfig::GenerateScoreReport()
     fileout.open(this->Filename);
     fileout << stringReport;
     fileout.close();
+    #ifdef __linux__ //no aplay or usable boost in windows
     if (scoreNew> this->scoreTotal){ boost::process::system("aplay SoundFX/win.wav");} //QSound::play("://SoundFX/win.wav");}
     else if (scoreNew< this->scoreTotal) {boost::process::system("aplay SoundFX/lose.wav");}
+    #endif
     this->scoreTotal=scoreNew;
 }

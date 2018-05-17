@@ -6,7 +6,9 @@
 #include <ctime>
 #include <cstdlib>
 #include <unistd.h>
+#ifdef __linux__
 #include <sys/socket.h>
+#endif
 #include <QTimer>
 #include <QApplication>
 #include <QSocketNotifier>

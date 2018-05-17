@@ -5,14 +5,26 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <signal.h>
+#ifdef __linux__
 void catchUnixSignals(std::initializer_list<int> quitSignals);
+#endif
 int main(int argc, char *argv[])
 {
+    #ifdef DONTRUN
+    #define _WIN32_WINNT 0x0502
+    #include <windows.h>
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
+    }
+    #endif
     if (argc>=2) //two or more arguments
     {
         if (std::string(argv[1])=="--background")
         {
+            #ifdef __linux__
             catchUnixSignals({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
+            #endif
             BackgroundService bkserv(argc,argv);
             bkserv.LoadConfig("config.bin");
             bkserv.Run();
@@ -26,7 +38,7 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
-
+#ifdef __linux__
 //catch a quit signal for ending gracefully
 void catchUnixSignals(std::initializer_list<int> quitSignals) {
     auto handler = [](int sig) -> void {
@@ -48,3 +60,4 @@ void catchUnixSignals(std::initializer_list<int> quitSignals) {
     for (auto sig : quitSignals)
         sigaction(sig, &sa, nullptr);
 }
+#endif
