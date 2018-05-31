@@ -14,8 +14,6 @@ class TemplateScoreChecker : public BaseScoreChecker
                 & BOOST_SERIALIZATION_NVP(vecScoreCheckers);
     }
 protected:
-    std::vector<BaseScoreChecker*> *vecBakedScoreCheckers;
-    std::vector<BaseScoreChecker*> *vecScoreCheckers;
     bool desiredState;
 
 public:
@@ -24,6 +22,8 @@ public:
     void setDesiredState(bool state);
     bool getDesiredState();
     void bakeScoreCheckers(std::vector<int> checkerIndex={});
+    std::vector<BaseScoreChecker*> *vecBakedScoreCheckers;
+    std::vector<BaseScoreChecker*> *vecScoreCheckers;
 };
 Q_DECLARE_METATYPE(TemplateScoreChecker*)
 #endif // TEMPLATESCORECHECKER_H

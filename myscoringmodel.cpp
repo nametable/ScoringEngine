@@ -502,7 +502,6 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
 }
 Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the attributes of individual items/cells based on data
 {
-    std::cerr << "Row:" << index.row() << std::endl;
     if (index.row()==-1) return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
     int typevalue = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
     switch (index.column())

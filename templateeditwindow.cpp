@@ -13,8 +13,30 @@ TemplateEditWindow::TemplateEditWindow(QWidget *parent, TemplateScoreChecker * s
 {
     ui->setupUi(this);
     this->scorechecker=scorechecker;
+    this->setWindowTitle(QString(this->scorechecker->getDescription().c_str()));
+    scoringmodel= new MyScoringModel(this, this->scorechecker->vecScoreCheckers);
+    scoringdelegate= new MyDelegate(this);
+    this->SetupTable();
 }
 TemplateEditWindow::~TemplateEditWindow()
 {
     delete ui;
+}
+void TemplateEditWindow::SetupTable()
+{
+    ui->mainTable->setModel(this->scoringmodel);
+    ui->mainTable->setItemDelegate(this->scoringdelegate);
+    ui->mainTable->setDragEnabled(true);
+    ui->mainTable->setDropIndicatorShown(true);
+    ui->mainTable->setDragDropMode(QAbstractItemView::DragDrop);
+    ui->mainTable->setDragDropOverwriteMode(false);
+    //leftTableView->setDragDropMode(QAbstractItemView::DragOnly);
+    //ui->mainTable->setDragDropMode(QAbstractItemView:: InternalMove);
+
+    QHeaderView *verticalHeader = ui->mainTable->verticalHeader();
+    QHeaderView *horizontalHeader = ui->mainTable->horizontalHeader();
+    verticalHeader->setSectionResizeMode(QHeaderView::Fixed);
+    verticalHeader->setDefaultSectionSize(30);
+
+    horizontalHeader->setDefaultSectionSize(60);
 }
