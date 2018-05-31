@@ -8,11 +8,11 @@
 #include "valuescorechecker.h"
 #include "scriptscorechecker.h"
 #include "templatescorechecker.h"
-class MyScoringModel : public QAbstractTableModel //QStandardItemModel //
+class ScoreCheckerViewModel : public QAbstractTableModel //QStandardItemModel //
 {
     Q_OBJECT
 public:
-    MyScoringModel(QObject *parent, std::vector<BaseScoreChecker*> *vecScoreCheckers );
+    ScoreCheckerViewModel(QObject *parent, std::vector<BaseScoreChecker*> *vecScoreCheckers );
     int rowCount(const QModelIndex &parent = QModelIndex()) const override ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

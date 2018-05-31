@@ -1,26 +1,26 @@
-#include "myscoringmodel.h"
+#include "scorecheckerviewmodel.h"
 #include <QPixmap>
 #include <QIcon>
 #include <QStandardItem>
 #include <string>
-MyScoringModel::MyScoringModel(QObject *parent, std::vector<BaseScoreChecker*> *vecScoreCheckers)
+ScoreCheckerViewModel::ScoreCheckerViewModel(QObject *parent, std::vector<BaseScoreChecker*> *vecScoreCheckers)
     :QAbstractTableModel(parent) //:QStandardItemModel(parent)
 {
     this->vecScoreCheckers=vecScoreCheckers;
 }
 
-int MyScoringModel::rowCount(const QModelIndex & /*parent*/) const
+int ScoreCheckerViewModel::rowCount(const QModelIndex & /*parent*/) const
 {
    //return 5000;
     return this->vecScoreCheckers->size();
 }
 
-int MyScoringModel::columnCount(const QModelIndex & /*parent*/) const
+int ScoreCheckerViewModel::columnCount(const QModelIndex & /*parent*/) const
 {
     return 7;
 }
 
-QVariant MyScoringModel::data(const QModelIndex &index, int role) const
+QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
 {
     QPixmap pic;
     QIcon icon;
@@ -317,7 +317,7 @@ QVariant MyScoringModel::data(const QModelIndex &index, int role) const
     }
     return QVariant();
 }
-QVariant MyScoringModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ScoreCheckerViewModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole)
         return QVariant();
@@ -350,7 +350,7 @@ QVariant MyScoringModel::headerData(int section, Qt::Orientation orientation, in
     }
     return QVariant();
 }
-bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, int role= Qt::EditRole)
+bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &value, int role= Qt::EditRole)
 {
     int typevalue = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
     int checktype=value.toInt();
@@ -500,7 +500,7 @@ bool MyScoringModel::setData(const QModelIndex &index, const QVariant &value, in
     }
     return true;
 }
-Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the attributes of individual items/cells based on data
+Qt::ItemFlags  ScoreCheckerViewModel::flags(const QModelIndex &index) const //set the attributes of individual items/cells based on data
 {
     if (index.row()==-1) return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
     int typevalue = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
@@ -526,18 +526,18 @@ Qt::ItemFlags  MyScoringModel::flags(const QModelIndex &index) const //set the a
     }
     return 0;
 }
-void MyScoringModel::refresh(int column)
+void ScoreCheckerViewModel::refresh(int column)
 {
 
 }
-void MyScoringModel::insertChecker(BaseScoreChecker *checker)
+void ScoreCheckerViewModel::insertChecker(BaseScoreChecker *checker)
 {
     this->beginInsertRows(QModelIndex(),(int)this->vecScoreCheckers->size(),(int)this->vecScoreCheckers->size());
     this->vecScoreCheckers->push_back(checker);
     this->endInsertRows();
 
 }
-void MyScoringModel::removeCheckers(QModelIndexList indexlist)
+void ScoreCheckerViewModel::removeCheckers(QModelIndexList indexlist)
 {
     QModelIndex index;
     int a=0;
@@ -552,7 +552,7 @@ void MyScoringModel::removeCheckers(QModelIndexList indexlist)
 
      std::cerr << this->vecScoreCheckers->size() << " scorecheckers remain.\n";
 }
-void MyScoringModel::sort(int column, Qt::SortOrder order)
+void ScoreCheckerViewModel::sort(int column, Qt::SortOrder order)
 {
     std::cerr << "Sorting column" << column << "...\n";
     switch (column)

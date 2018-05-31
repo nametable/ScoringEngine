@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     statusBar()->showMessage("Program loaded.");
 
     config= new ScoreCheckingConfig;
-    scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
-    scoringdelegate= new MyDelegate(this);
+    scoringmodel= new ScoreCheckerViewModel(this, config->vecScoreCheckers);
+    scoringdelegate= new ScoreCheckerViewDelegate(this);
     SetupTable();
 
     timer= new QTimer(this);
@@ -145,16 +145,16 @@ void MainWindow::on_actionOpen_Config_triggered()
         delete this->config;
         this->config=new ScoreCheckingConfig();
         loadConfigBIN(*config, filename.toStdString().c_str());
-        scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
-        scoringdelegate= new MyDelegate(this);
+        scoringmodel= new ScoreCheckerViewModel(this, config->vecScoreCheckers);
+        scoringdelegate= new ScoreCheckerViewDelegate(this);
         this->SetupTable();
     }else if (QFileInfo(filename).suffix()=="xml")
     {
         delete this->config;
         this->config=new ScoreCheckingConfig();
         loadConfigXML(*config, filename.toStdString().c_str());
-        scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
-        scoringdelegate= new MyDelegate(this);
+        scoringmodel= new ScoreCheckerViewModel(this, config->vecScoreCheckers);
+        scoringdelegate= new ScoreCheckerViewDelegate(this);
         this->SetupTable();
     }
 
@@ -176,8 +176,8 @@ void MainWindow::on_actionNew_Config_triggered()
     {
         delete this->config;
         this->config=new ScoreCheckingConfig();
-        scoringmodel= new MyScoringModel(this, config->vecScoreCheckers);
-        scoringdelegate= new MyDelegate(this);
+        scoringmodel= new ScoreCheckerViewModel(this, config->vecScoreCheckers);
+        scoringdelegate= new ScoreCheckerViewDelegate(this);
         this->SetupTable();
     }
 

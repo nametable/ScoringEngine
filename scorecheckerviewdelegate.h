@@ -2,10 +2,10 @@
 #define MYDELEGATE_H
 #include <QItemDelegate>
 #include <QStyledItemDelegate>
-class MyDelegate : public QStyledItemDelegate//QItemDelegate
+class ScoreCheckerViewDelegate : public QStyledItemDelegate//QItemDelegate
 {
 public:
-    MyDelegate(QObject *parent = 0);
+    ScoreCheckerViewDelegate(QObject *parent = 0);
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                           const QModelIndex &index) const;

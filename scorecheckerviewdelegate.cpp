@@ -1,4 +1,4 @@
-#include "mydelegate.h"
+#include "scorecheckerviewdelegate.h"
 #include <QPushButton>
 #include <QtGui>
 #include <QDialog>
@@ -10,10 +10,10 @@
 #include <iostream>
 #include "scripteditdialog.h"
 #include "templateeditwindow.h"
-MyDelegate::MyDelegate(QObject *parent)
+ScoreCheckerViewDelegate::ScoreCheckerViewDelegate(QObject *parent)
 {
 }
-QWidget * MyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+QWidget * ScoreCheckerViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                       const QModelIndex &index) const
 {
     QComboBox * combo= new QComboBox(parent);
@@ -80,7 +80,7 @@ QWidget * MyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &
     return QStyledItemDelegate::createEditor(parent,option,index);
 }
 
-void MyDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void ScoreCheckerViewDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     //QString value= index.model()->data(index, Qt::EditRole).toString();
     //QComboBox * combo= static_cast<QComboBox *>(editor);
@@ -93,7 +93,7 @@ void MyDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 
     QStyledItemDelegate::setEditorData(editor,index);
 }
-void MyDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
+void ScoreCheckerViewDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
                   const QModelIndex &index) const
 {
     QLineEdit *lineedit;
@@ -151,7 +151,7 @@ void MyDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
         break;
     }
 }
-bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
+bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
      if( event->type() == QEvent::MouseButtonPress)
      {
@@ -222,11 +222,11 @@ bool MyDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QSt
      }
      return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
-void MyDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void ScoreCheckerViewDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     editor->setGeometry(option.rect);
 }
-void MyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void ScoreCheckerViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     /*QStyleOptionButton button;
     QRect r = option.rect;//getting the rect of the cell

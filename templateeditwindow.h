@@ -3,8 +3,8 @@
 
 #include <QDialog>
 #include "templatescorechecker.h"
-#include "mydelegate.h"
-#include "myscoringmodel.h"
+#include "scorecheckerviewdelegate.h"
+#include "scorecheckerviewmodel.h"
 namespace Ui {
 class TemplateEditWindow;
 }
@@ -20,8 +20,8 @@ public:
 protected:
     TemplateScoreChecker * scorechecker;
 private:
-    MyScoringModel *scoringmodel;
-    MyDelegate *scoringdelegate;
+    ScoreCheckerViewModel *scoringmodel;
+    ScoreCheckerViewDelegate *scoringdelegate;
     Ui::TemplateEditWindow *ui;
     void SetupTable();
 };

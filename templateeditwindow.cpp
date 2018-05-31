@@ -14,8 +14,8 @@ TemplateEditWindow::TemplateEditWindow(QWidget *parent, TemplateScoreChecker * s
     ui->setupUi(this);
     this->scorechecker=scorechecker;
     this->setWindowTitle(QString(this->scorechecker->getDescription().c_str()));
-    scoringmodel= new MyScoringModel(this, this->scorechecker->vecScoreCheckers);
-    scoringdelegate= new MyDelegate(this);
+    scoringmodel= new ScoreCheckerViewModel(this, this->scorechecker->vecScoreCheckers);
+    scoringdelegate= new ScoreCheckerViewDelegate(this);
     this->SetupTable();
 }
 TemplateEditWindow::~TemplateEditWindow()

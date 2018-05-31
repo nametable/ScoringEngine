@@ -5,8 +5,8 @@
 #include "pathexistscorechecker.h"
 #include "valuescorechecker.h"
 #include "scriptscorechecker.h"
-#include "myscoringmodel.h"
-#include "mydelegate.h"
+#include "scorecheckerviewmodel.h"
+#include "scorecheckerviewdelegate.h"
 #include "scorecheckingconfig.h"
 #include <QStandardItemModel>
 #include <QItemSelectionModel>
@@ -46,8 +46,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MyScoringModel *scoringmodel;
-    MyDelegate *scoringdelegate;
+    ScoreCheckerViewModel *scoringmodel;
+    ScoreCheckerViewDelegate *scoringdelegate;
     QStandardItemModel *standardmodel;
     std::vector<BaseScoreChecker*> *vecScoreCheckers;
     ScoreCheckingConfig *config;

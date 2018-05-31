@@ -27,8 +27,6 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     basescorechecker.cpp \
-    myscoringmodel.cpp \
-    mydelegate.cpp \
     pathexistscorechecker.cpp \
     runcommandscorechecker.cpp \
     scorecheckingconfig.cpp \
@@ -39,13 +37,13 @@ SOURCES += \
     scripteditdialog.cpp \
     backgroundservice.cpp \
     templatescorechecker.cpp \
-    templateeditwindow.cpp
+    templateeditwindow.cpp \
+    scorecheckerviewmodel.cpp \
+    scorecheckerviewdelegate.cpp
 
 HEADERS += \
         mainwindow.h \
     basescorechecker.h \
-    myscoringmodel.h \
-    mydelegate.h \
     pathexistscorechecker.h \
     runcommandscorechecker.h \
     scorecheckingconfig.h \
@@ -57,7 +55,9 @@ HEADERS += \
     backgroundservice.h \
     templatescorechecker.h \
     templateeditwindow.h \
-    version.h
+    version.h \
+    scorecheckerviewmodel.h \
+    scorecheckerviewdelegate.h
 
 FORMS += \
         mainwindow.ui \
