@@ -5,6 +5,7 @@
 #include "templatescorechecker.h"
 #include "scorecheckerviewdelegate.h"
 #include "scorecheckerviewmodel.h"
+#include "QMenuBar"
 namespace Ui {
 class TemplateEditWindow;
 }
@@ -22,6 +23,11 @@ protected:
 private:
     ScoreCheckerViewModel *scoringmodel;
     ScoreCheckerViewDelegate *scoringdelegate;
+    QMenuBar * menuBar;
+    QMenu * menuEdit;
+    QMenu * menuCheckers;
+    QAction *actionInsert_Blank;
+    QAction *actionDelete;
     Ui::TemplateEditWindow *ui;
     void SetupTable();
 };
