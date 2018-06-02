@@ -213,7 +213,7 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
          case 6:
 
              QMouseEvent * e = (QMouseEvent *)event;
-             std::cout << "Button Clicked in col #7\n";
+             //std::cout << "Button Clicked in col #7\n";
              model->setData(index,1); //trigger a check
              return true;
 
