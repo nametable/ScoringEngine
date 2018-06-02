@@ -191,10 +191,10 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
                      {
-                         ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole | Qt::DisplayRole).toString().toStdString() );
+                         ScriptEditDialog *scriptedit=new ScriptEditDialog(0,model->data(index, Qt::EditRole | Qt::DisplayRole).value<ScriptScoreChecker*>() );
                          scriptedit->exec();
                          //model->data(index, Qt::EditRole)
-                         if (scriptedit->getScript()!="")model->setData(index, scriptedit->getScript().c_str());
+                         //if (scriptedit->getScript()!="")model->setData(index, scriptedit->getScript().c_str());
                      }
                  }
                  break;

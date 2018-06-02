@@ -18,6 +18,14 @@ std::string ScriptScoreChecker::getScript()
 {
     return this->script;
 }
+void ScriptScoreChecker::setScriptExtension(std::string scriptExtension)
+{
+    this->scriptExtension=scriptExtension;
+}
+std::string ScriptScoreChecker::getScriptExtension()
+{
+    return this->scriptExtension;
+}
 void ScriptScoreChecker::setSearchString(std::string searchString)
 {
     this->searchString=searchString;
@@ -58,7 +66,7 @@ void ScriptScoreChecker::execute()
     gen_scriptrun_directory();
     std::string sfilename;
     std::string file = "bash";
-    std::string ScriptExtension=".sh";
+    std::string ScriptExtension=this->getScriptExtension();
     //file osfile.str();
     sfilename=boost::filesystem::current_path().string() + "/tmp/" + file + ScriptExtension;
 
@@ -74,13 +82,21 @@ void ScriptScoreChecker::execute()
 #ifdef _WIN32
     if (ScriptExtension==".sh")exec(std::string("chmod +x " + sfilename).c_str()); //make script executable
 
-    this->scriptOutput= exec(sfilename.c_str());
+    if (ScriptExtension==".ps1")this->scriptOutput= exec(std::string("powershell " + sfilename).c_str());
+    else {this->scriptOutput= exec(sfilename.c_str());}
 #elif __linux__
     if (ScriptExtension==".sh")boost::process::system("chmod +x " + sfilename); //make script executable
 
-    boost::process::ipstream output;
-    boost::process::system(sfilename, boost::process::std_out > output);
-    this->scriptOutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
+    if (ScriptExtension==".sh")
+    {
+        boost::process::ipstream output;
+        boost::process::system(sfilename, boost::process::std_out > output);
+        this->scriptOutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
+    }else
+    {
+        std::cerr << "I can't execute a non bash script on Linux!\n";
+        this->scriptOutput="";
+    }
 #endif
 
     boost::filesystem::remove_all(sfilename); //removes the script now that execution is done

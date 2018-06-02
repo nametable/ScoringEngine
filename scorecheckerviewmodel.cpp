@@ -88,7 +88,8 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             }
             break;
         case 3: //ScriptCheck
-            if (role==Qt::EditRole | Qt::DisplayRole)return QString(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getScript().c_str());
+            //if (role==Qt::EditRole | Qt::DisplayRole)return QString(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getScript().c_str());
+            if (role==Qt::EditRole | Qt::DisplayRole)return QVariant::fromValue<ScriptScoreChecker*>(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row())));
             switch(role)
             {
             case Qt::DisplayRole:

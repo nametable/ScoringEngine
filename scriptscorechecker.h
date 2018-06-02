@@ -1,6 +1,7 @@
 #ifndef SCRIPTSCORECHECKER_H
 #define SCRIPTSCORECHECKER_H
 #include "basescorechecker.h"
+#include "QMetaType"
 class ScriptScoreChecker : public BaseScoreChecker
 {
     friend class boost::serialization::access;
@@ -18,6 +19,7 @@ class ScriptScoreChecker : public BaseScoreChecker
     }
 protected:
     std::string script; //bash script to be run - assuming that is available
+    std::string scriptExtension;
     std::string scriptOutput; //output from the script that ran
     std::string searchString; //string to search for in script output
     bool desiredState; //whether or not string is desired in output
@@ -25,6 +27,8 @@ protected:
 public:
     void setScript(std::string script);
     std::string getScript();
+    void setScriptExtension(std::string scriptExtension);
+    std::string getScriptExtension();
     void setSearchString(std::string searchString);
     std::string getSearchString();
     void setDesiredState(bool state);
@@ -34,4 +38,5 @@ public:
     ScriptScoreChecker();
 };
 bool gen_scriptrun_directory();
+Q_DECLARE_METATYPE(ScriptScoreChecker*)
 #endif // SCRIPTSCORECHECKER_H
