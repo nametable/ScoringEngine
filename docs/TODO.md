@@ -6,7 +6,7 @@
   - [ ] Compile Boost as static
   - [ ] Compile application
   - [ ] Create Distributable tar file with version number
-- [ ] Release binaries in tar.gz archives for use without end user compilation
+- [X] Release binaries in tar.gz archives for use without end user compilation
 ### Structure
 - [ ] Separate configuration tool from daemon (eliminate Qt dependency from daemon)
   - [ ] Use non qt timer loop (https://www.boost.org/doc/libs/1_67_0/doc/html/boost_asio/tutorial/tuttimer3/src.html)
@@ -23,7 +23,7 @@
   - [ ] Allow template scorecheckers to contain bash scripts where variables can be replaced
   - [ ] Create window to customize/create template scorecheckers
 - [ ] Allow manipulation of current issues in configuration
-  - [ ] Allow deletion of issues from current configuration
+  - [X] Allow deletion of issues from current configuration
   - [ ] Allow rearranging issues
   - [ ] Allow copying/cutting and pasting issues
 - [ ] Create mechanism for loading templates into the configuration tool
