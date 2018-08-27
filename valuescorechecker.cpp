@@ -26,15 +26,10 @@ bool ValueScoreChecker::getDesireExist()
 void ValueScoreChecker::checkState()
 {
     this->readFile();
+    //Note - boost regex seems to cause a problem with app crashing on close (only noticed when debugging though)
     boost::regex expression(this->searchstring);
     this->state=(boost::regex_search(this->filecontent,expression,boost::match_any)==this->getDesireExist()); //logical xnor
 
-    /*std::regex r(this->searchstring); // make regex
-    std::smatch m;
-    std::regex_search(this->filecontent, m, r);
-    this->state=((m.size()>0)==this->getDesireExist()); //logical xnor
-    */
-    //this->state=((this->filecontent.find(this->searchstring)!= std::string::npos)==this->desireExist); //logical xnor
 }
 void ValueScoreChecker::readFile()
 {
