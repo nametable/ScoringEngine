@@ -13,7 +13,7 @@ void TemplateScoreChecker::checkState() //loop through checkers
 {
     bool state=true;
 
-    for (int i=0;i< this->vecBakedScoreCheckers->size(); i++)
+    for (unsigned int i=0;i< this->vecBakedScoreCheckers->size(); i++)
     {
         this->vecBakedScoreCheckers->at(i)->checkState();
         state = (state == this->vecBakedScoreCheckers->at(i)->getState());
