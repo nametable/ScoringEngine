@@ -17,12 +17,12 @@ ScoreCheckingConfig::ScoreCheckingConfig()
 template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const unsigned int /* file_version */)
 {
         //ar.template register_type<PathExistScoreChecker>();
-        ar.register_type(static_cast<EmptyScoreChecker *>(NULL));
-        ar.register_type(static_cast<PathExistScoreChecker *>(NULL));
-        ar.register_type(static_cast<RunCommandScoreChecker *>(NULL));
-        ar.register_type(static_cast<ScriptScoreChecker *>(NULL));
-        ar.register_type(static_cast<ValueScoreChecker *>(NULL));
-        ar.register_type(static_cast<TemplateScoreChecker *>(NULL));
+        ar.register_type(static_cast<EmptyScoreChecker *>(nullptr));
+        ar.register_type(static_cast<PathExistScoreChecker *>(nullptr));
+        ar.register_type(static_cast<RunCommandScoreChecker *>(nullptr));
+        ar.register_type(static_cast<ScriptScoreChecker *>(nullptr));
+        ar.register_type(static_cast<ValueScoreChecker *>(nullptr));
+        ar.register_type(static_cast<TemplateScoreChecker *>(nullptr));
         ar & BOOST_SERIALIZATION_NVP(vecScoreCheckers)
            & BOOST_SERIALIZATION_NVP(Name)
            & BOOST_SERIALIZATION_NVP(Description)
@@ -91,7 +91,7 @@ void ScoreCheckingConfig::GenerateScoreReport()
 
     stringReport+="<center><h1>"+ this->Name +"</h1><h2 id=\"timeleft\">Checking ...</h2>";
     stringTable+="<table>";
-    for (int i=0; i< this->vecScoreCheckers->size(); i++ )
+    for (unsigned int i=0; i< this->vecScoreCheckers->size(); i++ )
     {
         vecScoreCheckers->at(i)->checkState();
         if (vecScoreCheckers->at(i)->getState())

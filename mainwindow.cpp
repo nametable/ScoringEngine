@@ -54,6 +54,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionExit_triggered()
 {
+    static_cast<QWidget*>(this->parent())->show(); //open up the start menu dialog
     this->destroy(true, true);
     this->close();
 }
@@ -117,13 +118,13 @@ void MainWindow::TestScoreCheckers() //This is all a test. Not for production...
 //Shows the preferences window
 void MainWindow::on_actionConfiguration_Prefs_triggered()
 {
-    ConfigPropertiesWindow *confmenu= new ConfigPropertiesWindow(0,this->config);
+    ConfigPropertiesWindow *confmenu= new ConfigPropertiesWindow(this,this->config);
     confmenu->show();
 }
 //Saves current config
 void MainWindow::on_actionSave_Config_triggered()
 {
-    QString filename= QFileDialog::getSaveFileName(this, tr("Save Config"),0,tr("Binary Files (*.bin);;XML Files (*.xml)"));
+    QString filename= QFileDialog::getSaveFileName(this, tr("Save Config"),QString(),tr("Binary Files (*.bin);;XML Files (*.xml)"));
     //
     QString suffix = QFileInfo(filename).suffix();
     if (QFileInfo(filename).suffix()=="bin")
@@ -139,7 +140,7 @@ void MainWindow::on_actionSave_Config_triggered()
 void MainWindow::on_actionOpen_Config_triggered()
 {
 
-    QString filename= QFileDialog::getOpenFileName(this, tr("Open Config"),0,tr("Binary Files (*.bin);;XML Files (*.xml)"));
+    QString filename= QFileDialog::getOpenFileName(this, tr("Open Config"),QString(),tr("Binary Files (*.bin);;XML Files (*.xml)"));
     if (QFileInfo(filename).suffix()=="bin")
     {
         delete this->config;

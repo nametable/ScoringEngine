@@ -29,6 +29,6 @@ void StartDialog::on_btnMulti_clicked()
 void StartDialog::on_btnEditor_clicked()
 {
     this->hide();
-    this->editorWindow= new MainWindow();
+    this->editorWindow= new MainWindow(this);
     this->editorWindow->show();
 }
