@@ -39,7 +39,8 @@ SOURCES += \
     templatescorechecker.cpp \
     templateeditwindow.cpp \
     scorecheckerviewmodel.cpp \
-    scorecheckerviewdelegate.cpp
+    scorecheckerviewdelegate.cpp \
+    startdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -57,13 +58,15 @@ HEADERS += \
     templateeditwindow.h \
     version.h \
     scorecheckerviewmodel.h \
-    scorecheckerviewdelegate.h
+    scorecheckerviewdelegate.h \
+    startdialog.h
 
 FORMS += \
         mainwindow.ui \
     configpropertieswindow.ui \
     scripteditdialog.ui \
-    templateeditwindow.ui
+    templateeditwindow.ui \
+    startdialog.ui
 
 release {
 INCLUDEPATH += ../boost_1_67_0/

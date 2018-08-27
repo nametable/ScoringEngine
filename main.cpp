@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "startdialog.h"
 #include "backgroundservice.h"
 #include <iostream>
 #include <string>
@@ -33,8 +34,10 @@ int main(int argc, char *argv[])
     }
     //No arguments -- assume GUI
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    StartDialog diagStart;
+    diagStart.show();
+    //MainWindow w;
+    //w.show();
 
     return a.exec();
 }
