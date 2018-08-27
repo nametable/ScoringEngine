@@ -27,12 +27,16 @@ void RunCommandScoreChecker::executeCommand()
     this->commandoutput=exec(this->command.c_str());
     #elif __linux__
     //INSERT BOOST CODE HERE
-    boost::process::ipstream output;
+    boost::process::ipstream output, whicherr, whichout;
     std::string output1;
-    boost::process::system(this->command, boost::process::std_out > output);
-    //output.
-    this->commandoutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
-    //this->commandoutput= output.
+    //Check from https://stackoverflow.com/questions/890894/portable-way-to-find-out-if-a-command-exists-c-c
+    if (!this->command.empty() && !boost::process::system("which " + this->command.substr(0, this->command.find(" ")),boost::process::std_err > whicherr, boost::process::std_out > whichout)){
+        boost::process::system(this->command, boost::process::std_out > output);
+        this->commandoutput= std::string((std::istreambuf_iterator<char>(output)), std::istreambuf_iterator<char>());
+    }else{
+        std::cerr << "Warning: no command \"" << this->command << "\".";
+        this->commandoutput="";
+    }
     #endif
 }
 void RunCommandScoreChecker::checkState()
@@ -41,14 +45,6 @@ void RunCommandScoreChecker::checkState()
     boost::regex expression(this->searchstring);
     this->state=(boost::regex_search(this->commandoutput,expression,boost::match_any)==this->bSearchstringexist); //logical xnor
 
-    //std::regex code ---
-    /*std::regex r(this->searchstring); // make regex
-    std::smatch m;
-    std::regex_search(this->commandoutput, m, r);
-    this->state=((m.size()>0)==this->bSearchstringexist); //logical xnor
-    */
-    //old non regex
-    //this->state=((this->commandoutput.find(this->searchstring)!= std::string::npos)==this->bSearchstringexist); //logical xnor
 }
 void RunCommandScoreChecker::setSearchExist(bool exist)
 {
