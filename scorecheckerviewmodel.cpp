@@ -555,7 +555,6 @@ void ScoreCheckerViewModel::removeCheckers(QModelIndexList indexlist)
 }
 void ScoreCheckerViewModel::sort(int column, Qt::SortOrder order)
 {
-    std::cerr << "Sorting column" << column << "...\n";
     switch (column)
     {
     case 0:
@@ -573,6 +572,8 @@ void ScoreCheckerViewModel::sort(int column, Qt::SortOrder order)
     }
     //reverse if order changed
     if (order==Qt::SortOrder::AscendingOrder)std::reverse(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end());
+
+    this->layoutChanged(); //lets Qt know that the rows need to be refreshed after the sort
 }
 
 bool sortByType(BaseScoreChecker *a, BaseScoreChecker *b)
