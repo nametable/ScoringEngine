@@ -548,8 +548,6 @@ void ScoreCheckerViewModel::removeCheckers(QModelIndexList indexlist)
          this->endRemoveRows();
          a--;
      }
-     //this->removeRow(index.row(),index);
-     //this->vecScoreCheckers->shrink_to_fit();
 
      std::cerr << this->vecScoreCheckers->size() << " scorecheckers remain.\n";
 }
@@ -573,6 +571,7 @@ void ScoreCheckerViewModel::sort(int column, Qt::SortOrder order)
     //reverse if order changed
     if (order==Qt::SortOrder::AscendingOrder)std::reverse(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end());
 
+    //https://forum.qt.io/topic/47206/how-to-refresh-a-qtableview-after-sorting-the-datasource-object/2
     this->layoutChanged(); //lets Qt know that the rows need to be refreshed after the sort
 }
 
