@@ -6,6 +6,6 @@
 #define VERSION_PATCH 0
 
 #define VERSION_YEAR 2018
-#define AUTHOR "Logan Bateman"
+#define AUTHOR ""
 
 #endif // VERSION_H
