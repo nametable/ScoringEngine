@@ -6,6 +6,7 @@ ValueScoreChecker::ValueScoreChecker()
     this->description="Value in file";
     this->points=1;
     this->checkerType="ValueCheck";
+    this->desireExist=true;
 }
 void ValueScoreChecker::setFilepath(std::string newFilepath)
 {
