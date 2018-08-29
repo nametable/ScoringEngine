@@ -6,6 +6,7 @@
 #include "runcommandscorechecker.h"
 #include "scriptscorechecker.h"
 #include "valuescorechecker.h"
+#include "questionanswerscorechecker.h"
 #include "templatescorechecker.h"
 #include <vector>
 class ScoreCheckingConfig

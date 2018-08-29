@@ -7,7 +7,9 @@
 #include "runcommandscorechecker.h"
 #include "valuescorechecker.h"
 #include "scriptscorechecker.h"
+#include "questionanswerscorechecker.h"
 #include "templatescorechecker.h"
+#include "constants.h"
 class ScoreCheckerViewModel : public QAbstractTableModel //QStandardItemModel //
 {
     Q_OBJECT

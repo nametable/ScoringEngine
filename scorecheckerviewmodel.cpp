@@ -3,6 +3,7 @@
 #include <QIcon>
 #include <QStandardItem>
 #include <string>
+
 ScoreCheckerViewModel::ScoreCheckerViewModel(QObject *parent, std::vector<BaseScoreChecker*> *vecScoreCheckers)
     :QAbstractTableModel(parent) //:QStandardItemModel(parent)
 {
@@ -17,7 +18,7 @@ int ScoreCheckerViewModel::rowCount(const QModelIndex & /*parent*/) const
 
 int ScoreCheckerViewModel::columnCount(const QModelIndex & /*parent*/) const
 {
-    return 7;
+    return COLUMN_FIXED+1;
 }
 
 QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
@@ -27,7 +28,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
     int value;
     switch(index.column())
     {
-    case 0: //ScoreChecker Type
+    case COLUMN_TYPE: //ScoreChecker Type
         switch(role)
         {
         case Qt::DisplayRole:
@@ -36,17 +37,17 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             break;
         case Qt::EditRole:
             //return tr("Path Exist");
-            if (vecScoreCheckers->at(index.row())->getCheckerType()=="PathExist")return 0;
-            if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunCommand")return 1;
-            if (vecScoreCheckers->at(index.row())->getCheckerType()=="ValueCheck")return 2;
-            if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunScript")return 3;
-            if (vecScoreCheckers->at(index.row())->getCheckerType()=="Compound")return 4;
-            if (vecScoreCheckers->at(index.row())->getCheckerType()=="Template")return 5;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="PathExist")return CHECKER_PATH;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunCommand")return CHECKER_RUN_COMMAND;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="ValueCheck")return CHECKER_VALUE;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="RunScript")return CHECKER_RUN_SCRIPT;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="QuestionAnswer")return CHECKER_QA;
+            if (vecScoreCheckers->at(index.row())->getCheckerType()=="Template")return CHECKER_TEMPLATE;
             //return QString(vecScoreCheckers->at(index.row())->getCheckerType().c_str());
             break;
         }
         break;
-    case 1: //ScoreChecker Description
+    case COLUMN_DESCRIPTION: //ScoreChecker Description
         switch(role)
         {
         case Qt::DisplayRole:
@@ -55,12 +56,21 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case 2: //ScoreChecker Opt1
+    case COLUMN_INSTRUCTIONS:
+        switch(role)
+        {
+        case Qt::DisplayRole:
+        case Qt::EditRole:
+            return QString(vecScoreCheckers->at(index.row())->getInstructions().c_str());
+            break;
+        }
+        break;
+    case COLUMN_OPT1: //ScoreChecker Opt1
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
         switch(value)
         {
-        case 0: //PathExist
+        case CHECKER_PATH: //PathExist
             switch(role)
             {
             case Qt::DisplayRole:
@@ -69,7 +79,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 1: //RunCommand
+        case CHECKER_RUN_COMMAND: //RunCommand
             switch(role)
             {
             case Qt::DisplayRole:
@@ -78,7 +88,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 2: //ValueCheck
+        case CHECKER_VALUE: //ValueCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -87,7 +97,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 3: //ScriptCheck
+        case CHECKER_RUN_SCRIPT: //ScriptCheck
             //if (role==Qt::EditRole | Qt::DisplayRole)return QString(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row()))->getScript().c_str());
             if (role==Qt::EditRole | Qt::DisplayRole)return QVariant::fromValue<ScriptScoreChecker*>(static_cast<ScriptScoreChecker*>(vecScoreCheckers->at(index.row())));
             switch(role)
@@ -100,9 +110,9 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 4: //CompoundCheck
+        case CHECKER_QA: //QuestionAnswer
             break;
-        case 5: //TemplateCheck
+        case CHECKER_TEMPLATE: //TemplateCheck
             if (role==Qt::EditRole | Qt::DisplayRole)return QVariant::fromValue<TemplateScoreChecker*>(static_cast<TemplateScoreChecker*>(vecScoreCheckers->at(index.row())));
             switch(role)
             {
@@ -116,13 +126,13 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case 3: //ScoreChecker Opt2
+    case COLUMN_OPT2: //ScoreChecker Opt2
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
         //value = index.model()->data(QModelIndex(index.row(),0),Qt::EditRole).toInt();
         switch(value)
         {
-        case 0: //PathCheck
+        case CHECKER_PATH: //PathCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -139,7 +149,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 1: //CommandCheck
+        case CHECKER_RUN_COMMAND: //CommandCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -156,7 +166,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 2: //Value Check
+        case CHECKER_VALUE: //Value Check
             switch(role)
             {
             case Qt::DisplayRole:
@@ -173,7 +183,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 3: //ScriptCheck
+        case CHECKER_RUN_SCRIPT: //ScriptCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -190,9 +200,9 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 4: //CompoundCheck
+        case CHECKER_QA: //CompoundCheck
             break;
-        case 5: //TemplateCheck
+        case CHECKER_TEMPLATE: //TemplateCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -211,13 +221,13 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case 4: //ScoreChecker Opt3
+    case COLUMN_SEARCH_STR: //ScoreChecker Opt3
         //return QString("nothing");
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
         switch(value)
         {
-        case 0: //PathCheck
+        case CHECKER_PATH: //PathCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -225,7 +235,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 return QString("Unused");
                 break;
             }
-        case 1: //RunCommand
+        case CHECKER_RUN_COMMAND: //RunCommand
             switch(role)
             {
             case Qt::DisplayRole:
@@ -234,7 +244,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 2: //ValueCheck
+        case CHECKER_VALUE: //ValueCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -243,7 +253,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 3: //ScriptCheck
+        case CHECKER_RUN_SCRIPT: //ScriptCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -252,7 +262,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 break;
             }
             break;
-        case 4: //CompoundCheck
+        case CHECKER_QA: //CompoundCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -260,7 +270,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
                 return QString("UNK");
                 break;
             }
-        case 5: //TemplateCheck
+        case CHECKER_TEMPLATE: //TemplateCheck
             switch(role)
             {
             case Qt::DisplayRole:
@@ -271,7 +281,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case 5: //ScoreChecker point value
+    case COLUMN_POINTS: //ScoreChecker point value
         switch(role)
         {
         case Qt::DisplayRole:
@@ -280,7 +290,7 @@ QVariant ScoreCheckerViewModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case 6: //ScoreChecker state
+    case COLUMN_FIXED: //ScoreChecker state
         switch(role)
         {
         case Qt::DisplayRole:
@@ -325,21 +335,23 @@ QVariant ScoreCheckerViewModel::headerData(int section, Qt::Orientation orientat
 
     if (orientation == Qt::Horizontal) {
         switch (section) {
-        case 0:
+        case COLUMN_TYPE:
             return tr("Type");
-        case 1:
+        case COLUMN_DESCRIPTION:
             return tr("Description");
-        case 2:
-
-        case 3:
+        case COLUMN_INSTRUCTIONS:
+            return tr("Instructions/Question");
+        case COLUMN_OPT1:
+            return tr("OPT");
+        case COLUMN_OPT2:
             return tr("OPT");
             break;
-        case 4:
+        case COLUMN_SEARCH_STR:
             return tr("SearchStr");
             break;
-        case 5:
+        case COLUMN_POINTS:
             return tr("Points");
-        case 6:
+        case COLUMN_FIXED:
             return tr("Fixed");
         default:
             return QVariant();
@@ -357,7 +369,7 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
     int checktype=value.toInt();
     switch(index.column())
     {
-    case 0: //ScoreChecker Type
+    case COLUMN_TYPE: //ScoreChecker Type
         switch(role)
         {
         case Qt::DisplayRole:
@@ -365,29 +377,29 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
         case Qt::EditRole:
             switch(checktype)
             {
-            case 0: //PathExist
+            case CHECKER_PATH: //PathExist
                 vecScoreCheckers->at(index.row())=new PathExistScoreChecker();
                 break;
-            case 1: //CommandCheck
+            case CHECKER_RUN_COMMAND: //CommandCheck
                 vecScoreCheckers->at(index.row())=new RunCommandScoreChecker();
                 break;
-            case 2: //ValueCheck
+            case CHECKER_VALUE: //ValueCheck
                 vecScoreCheckers->at(index.row())=new ValueScoreChecker();
                 break;
-            case 3: //ScriptCheck
+            case CHECKER_RUN_SCRIPT: //ScriptCheck
                 vecScoreCheckers->at(index.row())=new ScriptScoreChecker();
                 break;
-            case 4: //CompoundCheck
-                //vecScoreCheckers->at(index.row())=new PathExistScoreChecker();
+            case CHECKER_QA: //QuestionAnswer
+                vecScoreCheckers->at(index.row())=new QuestionAnswerScoreChecker();
                 break;
-            case 5: //TemplateCheck
+            case CHECKER_TEMPLATE: //TemplateCheck
                 vecScoreCheckers->at(index.row())=new TemplateScoreChecker();
                 break;
             }
             break;
         }
         break;
-    case 1: //ScoreChecker Description
+    case COLUMN_DESCRIPTION: //ScoreChecker Description
         switch(role)
         {
         case Qt::DisplayRole:
@@ -396,7 +408,17 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
             break;
         }
         break;
-    case 2: //ScoreChecker Opt1
+    case COLUMN_INSTRUCTIONS: //instructions/question
+        switch(role)
+        {
+        case Qt::DisplayRole:
+        case Qt::EditRole:
+            vecScoreCheckers->at(index.row())->setInstructions(value.toString().toStdString());
+            break;
+        }
+        break;
+        break;
+    case COLUMN_OPT1: //ScoreChecker Opt1
         switch(role)
         {
         case Qt::DisplayRole:
@@ -404,28 +426,28 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
             BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
             switch(typevalue)
             {
-            case 0: //PathExist
+            case CHECKER_PATH: //PathExist
                 static_cast<PathExistScoreChecker*>(basecheck)->setFilepath(value.toString().toStdString());//PathExistScoreChecker * scorecheck= basecheck;
                 break;
-            case 1: //CommandCheck
+            case CHECKER_RUN_COMMAND: //CommandCheck
                 static_cast<RunCommandScoreChecker*>(basecheck)->setCommand(value.toString().toStdString());
                 break;
-            case 2: //ValueCheck
+            case CHECKER_VALUE: //ValueCheck
                 static_cast<ValueScoreChecker*>(basecheck)->setFilepath(value.toString().toStdString());
                 break;
-            case 3: //ScriptCheck
+            case CHECKER_RUN_SCRIPT: //ScriptCheck
                 static_cast<ScriptScoreChecker*>(basecheck)->setScript(value.toString().toStdString());
-            case 4: //CompoundCheck
+            case CHECKER_QA: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
                 break;
-            case 5: //TemplateCheck
+            case CHECKER_TEMPLATE: //TemplateCheck
                 break;
             }
 
             break;
         }
         break;
-    case 3: //ScoreChecker Opt2
+    case COLUMN_OPT2: //ScoreChecker Opt2
         switch(role)
         {
         case Qt::DisplayRole:
@@ -433,29 +455,29 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
             BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
             switch(typevalue)
             {
-            case 0: //PathExist
+            case CHECKER_PATH: //PathExist
                 static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());//PathExistScoreChecker * scorecheck= basecheck;
                 break;
-            case 1: //CommandCheck
+            case CHECKER_RUN_COMMAND: //CommandCheck
                 static_cast<RunCommandScoreChecker*>(basecheck)->setSearchExist(value.toBool());
                 break;
-            case 2: //ValueCheck
+            case CHECKER_VALUE: //ValueCheck
                 static_cast<ValueScoreChecker*>(basecheck)->setDesireExist(value.toBool());
                 break;
-            case 3: //ScriptCheck
+            case CHECKER_RUN_SCRIPT: //ScriptCheck
                 static_cast<ScriptScoreChecker*>(basecheck)->setDesiredState(value.toBool());
                 break;
-            case 4: //CompoundCheck
+            case CHECKER_QA: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setDesireExist(value.toBool());
                 break;
-            case 5: //TemplateCheck
+            case CHECKER_TEMPLATE: //TemplateCheck
                 static_cast<TemplateScoreChecker*>(basecheck)->setDesiredState(value.toBool());
                 break;
             }
              break;
         }
         break;
-    case 4: //Unused column
+    case COLUMN_SEARCH_STR: //Search string
         switch(role)
         {
         case Qt::DisplayRole:
@@ -463,26 +485,26 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
             BaseScoreChecker * basecheck= vecScoreCheckers->at(index.row());
             switch(typevalue)
             {
-            case 0: //PathExist
+            case CHECKER_PATH: //PathExist
                 //Nothing to set here
                 break;
-            case 1: //CommandCheck
+            case CHECKER_RUN_COMMAND: //CommandCheck
                 (static_cast<RunCommandScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
                 break;
-            case 2: //ValueCheck
+            case CHECKER_VALUE: //ValueCheck
                 (static_cast<ValueScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
                 break;
-            case 3: //ScriptCheck
+            case CHECKER_RUN_SCRIPT: //ScriptCheck
                 (static_cast<ScriptScoreChecker*>(basecheck))->setSearchString(value.toString().toStdString());
                 break;
-            case 4: //CompoundCheck
+            case CHECKER_QA: //CompoundCheck
                 //static_cast<PathExistScoreChecker*>(basecheck)->setSearchString(value.toString());
                 break;
             }
              break;
         }
         break;
-    case 5: //ScoreChecker point value
+    case COLUMN_POINTS: //ScoreChecker point value
         switch(role)
         {
         case Qt::DisplayRole:
@@ -491,7 +513,7 @@ bool ScoreCheckerViewModel::setData(const QModelIndex &index, const QVariant &va
             break;
         }
         break;
-    case 6: //ScoreChecker state
+    case COLUMN_FIXED: //ScoreChecker state
             vecScoreCheckers->at(index.row())->checkState();
             //vecScoreCheckers->at(index.row()).setPoints(value.toInt());
         break;
@@ -507,22 +529,23 @@ Qt::ItemFlags  ScoreCheckerViewModel::flags(const QModelIndex &index) const //se
     int typevalue = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
     switch (index.column())
     {
-    case 0:
+    case COLUMN_TYPE:
         //if(index.data(Qt::DisplayRole)!=""){return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}else{return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;}
         return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;
-    case 1:
-        //return Qt::ItemIsSelectable;
+    case COLUMN_DESCRIPTION:
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    case 2:
+    case COLUMN_INSTRUCTIONS:
+        return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    case COLUMN_OPT1:
         //return Qt::ItemIsSelectable;
         if (typevalue==3)return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    case 3:
+    case COLUMN_OPT2:
         //return Qt::ItemIsSelectable;
-    case 4:
+    case COLUMN_SEARCH_STR:
 
-    case 5:
+    case COLUMN_POINTS:
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    case 6:
+    case COLUMN_FIXED:
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }
     return 0;
@@ -555,16 +578,16 @@ void ScoreCheckerViewModel::sort(int column, Qt::SortOrder order)
 {
     switch (column)
     {
-    case 0:
+    case COLUMN_TYPE:
         std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortByType);
         break;
-    case 1:
+    case COLUMN_DESCRIPTION:
         std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortByDescription);
         break;
-    case 5:
+    case COLUMN_POINTS:
         std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortByPoints);
         break;
-    case 6:
+    case COLUMN_FIXED:
         std::sort(this->vecScoreCheckers->begin(), this->vecScoreCheckers->end(),sortBySolved);
         break;
     }

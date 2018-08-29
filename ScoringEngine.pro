@@ -63,7 +63,8 @@ HEADERS += \
     scorecheckerviewdelegate.h \
     startdialog.h \
     questionanswerscorechecker.h \
-    playerdashboard.h
+    playerdashboard.h \
+    constants.h
 
 FORMS += \
         mainwindow.ui \

@@ -24,6 +24,7 @@ template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const u
         ar.register_type(static_cast<ValueScoreChecker *>(nullptr));
         if(file_version>0){
             ar.register_type(static_cast<TemplateScoreChecker *>(nullptr));
+            ar.register_type(static_cast<QuestionAnswerScoreChecker *>(nullptr));
         }
         ar & BOOST_SERIALIZATION_NVP(vecScoreCheckers)
            & BOOST_SERIALIZATION_NVP(Name)

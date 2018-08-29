@@ -23,7 +23,7 @@ QWidget * ScoreCheckerViewDelegate::createEditor(QWidget *parent, const QStyleOp
     int value;
     switch(index.column())
     {
-    case 0:
+    case COLUMN_TYPE:
         //checker[0]->
         //break;
         //if(index.data(Qt::DisplayRole)!="")break;
@@ -31,47 +31,44 @@ QWidget * ScoreCheckerViewDelegate::createEditor(QWidget *parent, const QStyleOp
         combo->addItem(tr("Command Output"));
         combo->addItem(tr("Value"));
         combo->addItem(tr("Script"));
-        combo->addItem(tr("Compound - not working"));
+        combo->addItem(tr("QuestionAnswer"));
         combo->addItem(tr("Template - beta"));
         combo->setCurrentIndex(0);
         return combo;
         break;
-    case 1:
+    case COLUMN_DESCRIPTION:
         //break;
         //return QItemDelegate::createEditor(parent,option,index);
         //spinbox->setFrame(false);
         return QStyledItemDelegate::createEditor(parent,option,index);
         break;
-    case 2: //Opt1
+    case COLUMN_OPT1: //Opt1
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
         switch(value)
         {
-        case 0: //PathCheck
+        case CHECKER_PATH: //PathCheck
             break;
-        case 1: //CommandCheck
+        case CHECKER_RUN_COMMAND: //CommandCheck
             break;
-        case 2: //ValueCheck
+        case CHECKER_VALUE: //ValueCheck
             break;
-        case 3: //ScriptCheck
-            //button->setText("EditScript");
-            //return button;
+        case CHECKER_RUN_SCRIPT: //ScriptCheck
             break;
-        case 4: //CompoundCheck
-            button->setText("GoInline");
-            return button;
+        case CHECKER_QA: //QuestionAnswer
+            break;
         }
         break;
-    case 3:
+    case COLUMN_OPT2:
         combo->addItem(tr("!Exist"));
         combo->addItem(tr("Exist"));
         combo->setCurrentIndex(index.data(Qt::EditRole).toBool());
         return combo;
-    case 4: //SearchString
+    case COLUMN_SEARCH_STR: //SearchString
         //return button;
-    case 5: //Points
+    case COLUMN_POINTS: //Points
         break;
-    case 6:
+    case COLUMN_FIXED:
         button->setText(tr("HI"));
         return button;
     //default:
@@ -102,50 +99,55 @@ void ScoreCheckerViewDelegate::setModelData(QWidget *editor, QAbstractItemModel 
     int value;
     switch(index.column())
     {
-    case 0: //ScoreChecker Type
+    case COLUMN_TYPE: //ScoreChecker Type
         combo = static_cast<QComboBox*>(editor);
         model->setData(index,combo->currentIndex());
 
         break;
-    case 1: //ScoreChecker Description
+    case COLUMN_DESCRIPTION: //ScoreChecker Description
         lineedit = static_cast<QLineEdit*>(editor);
         model->setData(index,lineedit->text());
 
         break;
-    case 2: //Opt1
+    case COLUMN_INSTRUCTIONS: //Instructions/Question
+        lineedit = static_cast<QLineEdit*>(editor);
+        model->setData(index,lineedit->text());
+
+        break;
+    case COLUMN_OPT1: //Opt1
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
         value = index.model()->data(index.sibling(index.row(),0), Qt::EditRole).toInt();
         switch(value)
         {
-        case 0: //PathCheck
+        case CHECKER_PATH: //PathCheck
             lineedit = static_cast<QLineEdit*>(editor);
             model->setData(index,lineedit->text());
             break;
-        case 1: //CommandCheck
-        case 2: //ValueCheck
+        case CHECKER_RUN_COMMAND: //CommandCheck
+        case CHECKER_VALUE: //ValueCheck
             lineedit = static_cast<QLineEdit*>(editor);
             model->setData(index,lineedit->text());
             break;
-        case 3: //ScriptCheck
+        case CHECKER_RUN_SCRIPT: //ScriptCheck
             break;
-        case 4: //CompoundCheck
+        case CHECKER_QA: //CompoundCheck
             break;
         }
         break;
-    case 3: //ScoreChecker Desired State
+    case COLUMN_OPT2: //ScoreChecker Desired State
         combo = static_cast<QComboBox*>(editor);
         model->setData(index,combo->currentIndex());
         break;
-    case 4:
+    case COLUMN_SEARCH_STR:
         lineedit = static_cast<QLineEdit*>(editor);
         model->setData(index,lineedit->text());
         break;
-    case 5: //ScoreChecker point value
+    case COLUMN_POINTS: //ScoreChecker point value
         spinbox = static_cast<QSpinBox*>(editor);
         model->setData(index,spinbox->value());
             //vecScoreCheckers->at(index.row()).setPoints(value.toInt());
         break;
-    case 6: //ScoreChecker state
+    case COLUMN_FIXED: //ScoreChecker state
         break;
     default:
         break;
@@ -157,10 +159,10 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
      {
          switch(index.column())
          {
-         case 2:
+         case COLUMN_OPT1:
              switch (model->data(index.sibling(index.row(),0),Qt::EditRole).toInt())
              {
-             case 0: ; //PathExist
+             case CHECKER_PATH: ; //PathExist
                  {
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
@@ -172,9 +174,9 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                      }
                  }
                  break;
-             case 1:
+             case CHECKER_VALUE:
                  break;
-             case 2:
+             case CHECKER_RUN_COMMAND:
                  {
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
@@ -186,7 +188,7 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                      }
                  }
                  break;
-             case 3:
+             case CHECKER_RUN_SCRIPT:
                  {
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
@@ -198,7 +200,7 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                      }
                  }
                  break;
-             case 5: //TemplateChecker
+             case CHECKER_TEMPLATE: //TemplateChecker
                  QMouseEvent * e = (QMouseEvent *)event;
                  if (e->button()==Qt::RightButton)
                  {
@@ -210,7 +212,7 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                  break;
              }
              break;
-         case 6:
+         case COLUMN_FIXED:
 
              QMouseEvent * e = (QMouseEvent *)event;
              //std::cout << "Button Clicked in col #7\n";

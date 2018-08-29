@@ -2,6 +2,7 @@
 #define MYDELEGATE_H
 #include <QItemDelegate>
 #include <QStyledItemDelegate>
+#include "constants.h"
 class ScoreCheckerViewDelegate : public QStyledItemDelegate//QItemDelegate
 {
 public:
