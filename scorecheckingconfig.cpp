@@ -14,7 +14,7 @@ ScoreCheckingConfig::ScoreCheckingConfig()
     this->Description="This configuration is undescribed.";
     this->Passphrase="";
 }
-template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const unsigned int /* file_version */)
+template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const unsigned int file_version)
 {
         //ar.template register_type<PathExistScoreChecker>();
         ar.register_type(static_cast<EmptyScoreChecker *>(nullptr));
@@ -22,7 +22,9 @@ template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const u
         ar.register_type(static_cast<RunCommandScoreChecker *>(nullptr));
         ar.register_type(static_cast<ScriptScoreChecker *>(nullptr));
         ar.register_type(static_cast<ValueScoreChecker *>(nullptr));
-        ar.register_type(static_cast<TemplateScoreChecker *>(nullptr));
+        if(file_version>0){
+            ar.register_type(static_cast<TemplateScoreChecker *>(nullptr));
+        }
         ar & BOOST_SERIALIZATION_NVP(vecScoreCheckers)
            & BOOST_SERIALIZATION_NVP(Name)
            & BOOST_SERIALIZATION_NVP(Description)
@@ -32,7 +34,7 @@ template<class Archive> void ScoreCheckingConfig::serialize(Archive &ar, const u
             //& BOOST_SERIALIZATION_NVP(Scans);
 
 }
-
+BOOST_CLASS_VERSION(ScoreCheckingConfig, 1)
 void saveConfigXML(const ScoreCheckingConfig &s, const char * filename){ //from example code
     // make an archive
     std::ofstream ofs(filename);

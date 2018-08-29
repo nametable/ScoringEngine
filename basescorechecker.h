@@ -36,13 +36,15 @@ class BaseScoreChecker
     friend std::ostream & operator<<(std::ostream &os, const BaseScoreChecker &gp);
     //template<class Archive>
     //void serialize(Archive & ar, const unsigned int /* file_version */);
-    template<class Archive> void serialize(Archive & ar, const unsigned int /*file_version */)
+    template<class Archive> void serialize(Archive & ar, const unsigned int file_version )
     {
         ar  & BOOST_SERIALIZATION_NVP(state)
             & BOOST_SERIALIZATION_NVP(description)
-            & BOOST_SERIALIZATION_NVP(instructions)
             & BOOST_SERIALIZATION_NVP(checkerType)
             & BOOST_SERIALIZATION_NVP(points);
+        if (file_version>0){
+            ar & BOOST_SERIALIZATION_NVP(instructions);
+        }
 
     }
 
@@ -67,6 +69,7 @@ public:
     virtual void checkState()=0; //Pure Virtual - run code to see if issue has been resolved
 };
 //BOOST_SERIALIZATION_ASSUME_ABSTRACT(BaseScoreChecker)
+BOOST_CLASS_VERSION(BaseScoreChecker, 1)
 std::string exec(const char* cmd);
 
 #endif // BASESCORECHECKER_H
