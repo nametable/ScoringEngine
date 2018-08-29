@@ -1,5 +1,6 @@
 /*/////
-//  Copyright Logan Bateman 2018
+//
+//  2018
 //  BaseScoreChecker is an class to derive from for score checking
 //  It requires checkState to be implemented.
 //
@@ -37,26 +38,18 @@ class BaseScoreChecker
     //void serialize(Archive & ar, const unsigned int /* file_version */);
     template<class Archive> void serialize(Archive & ar, const unsigned int /*file_version */)
     {
-                //BOOST_SERIALIZATION_ASSUME_ABSTRACT(T)
-            ar  & BOOST_SERIALIZATION_NVP(state)
-                & BOOST_SERIALIZATION_NVP(description)
-                & BOOST_SERIALIZATION_NVP(checkerType)
-                & BOOST_SERIALIZATION_NVP(points);
-                //& BOOST_SERIALIZATION_NVP(bChecked)
-                //& BOOST_SERIALIZATION_NVP(bComplete)
-                //& BOOST_SERIALIZATION_NVP(Script)
-                //& BOOST_SERIALIZATION_NVP(UnScript)
-                //& BOOST_SERIALIZATION_NVP(ScriptExtension)
-                //& BOOST_SERIALIZATION_NVP(input_variables)
-                //& BOOST_SERIALIZATION_NVP(output_variables);
-                //& BOOST_SERIALIZATION_NVP(result_variable)
-                //& BOOST_SERIALIZATION_NVP(result)
+        ar  & BOOST_SERIALIZATION_NVP(state)
+            & BOOST_SERIALIZATION_NVP(description)
+            & BOOST_SERIALIZATION_NVP(instructions)
+            & BOOST_SERIALIZATION_NVP(checkerType)
+            & BOOST_SERIALIZATION_NVP(points);
 
     }
 
 protected:
     bool state;
     std::string description;
+    std::string instructions;
     std::string checkerType;
     int points;
 
@@ -65,9 +58,11 @@ public:
     BaseScoreChecker(std::string description);
     bool getState();
     std::string getDescription();
+    std::string getInstructions();
     std::string getCheckerType();
     int getPoints();
     void setDescription(std::string newDescription); //description of item
+    void setInstructions(std::string newInstructions); //instruction or question for user
     void setPoints(int newPoints);    //points of item - negative for mistakes
     virtual void checkState()=0; //Pure Virtual - run code to see if issue has been resolved
 };

@@ -1,6 +1,7 @@
 /*/////
-//  Copyright Logan Bateman 2018
-//
+//  2018
+//  BaseScoreChecker holds the basic information for all issues to be fixed
+//  This class is later used in derived classes
 //
 /////*/
 #include "basescorechecker.h"
@@ -16,7 +17,7 @@ BaseScoreChecker::BaseScoreChecker(std::string description)
     this->description=description;
 }
 void BaseScoreChecker::checkState(){
-    std::cout << "Please use a derived class.\n";
+    std::cerr << "Warning: Please use a derived class instead of BaseScoreChecker.\n";
 }
 bool BaseScoreChecker::getState()
 {
@@ -25,6 +26,9 @@ bool BaseScoreChecker::getState()
 std::string BaseScoreChecker::getDescription()
 {
     return this->description;
+}
+std::string BaseScoreChecker::getInstructions(){
+    return this->instructions;
 }
 std::string BaseScoreChecker::getCheckerType()
 {
@@ -38,15 +42,18 @@ void BaseScoreChecker::setDescription(std::string newDescription)
 {
     this->description=newDescription;
 }
-void BaseScoreChecker::setPoints(int newPoints) //has built in max of 10 and min of -10
+void BaseScoreChecker::setInstructions(std::string newInstructions){
+    this->instructions = newInstructions;
+}
+void BaseScoreChecker::setPoints(int newPoints) //has built in max of 100 and min of -100
 {
     if (newPoints>10)
     {
-        this->points=10;
+        this->points=100;
     }
     else if (newPoints<-10)
     {
-        this->points=-10;
+        this->points=-100;
     }else
     {
         this->points=newPoints;
@@ -54,7 +61,7 @@ void BaseScoreChecker::setPoints(int newPoints) //has built in max of 10 and min
     }
 }
 
-//used as a boost process replacement - from https://stackoverflow.com/questions/478898/how-to-execute-a-command-and-get-output-of-command-within-c-using-posix
+//used as a boost process replacement for Windows - from https://stackoverflow.com/questions/478898/how-to-execute-a-command-and-get-output-of-command-within-c-using-posix
 #include <cstdio>
 #include <iostream>
 #include <memory>
