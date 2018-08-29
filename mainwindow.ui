@@ -111,6 +111,8 @@
     <addaction name="actionConfiguration_Prefs"/>
     <addaction name="actionTimer_Start"/>
     <addaction name="actionDelete"/>
+    <addaction name="separator"/>
+    <addaction name="actionPlayer_Dashboard"/>
    </widget>
    <widget class="QMenu" name="menuCheckers">
     <property name="title">
@@ -192,6 +194,11 @@
   <action name="actionOpen_Config_from_server">
    <property name="text">
     <string>Open Config from server</string>
+   </property>
+  </action>
+  <action name="actionPlayer_Dashboard">
+   <property name="text">
+    <string>Player Dashboard</string>
    </property>
   </action>
  </widget>

@@ -8,6 +8,7 @@
 #include "scorecheckerviewmodel.h"
 #include "scorecheckerviewdelegate.h"
 #include "scorecheckingconfig.h"
+#include "playerdashboard.h"
 #include <QStandardItemModel>
 #include <QItemSelectionModel>
 #include <vector>
@@ -43,6 +44,8 @@ private slots:
     void on_actionDelete_triggered();
 
     void on_actionAbout_triggered();
+
+    void on_actionPlayer_Dashboard_triggered();
 
 private:
     Ui::MainWindow *ui;

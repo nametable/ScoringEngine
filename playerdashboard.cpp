@@ -6,7 +6,10 @@ PlayerDashboard::PlayerDashboard(QWidget *parent, ScoreCheckingConfig *config) :
     ui(new Ui::PlayerDashboard)
 {
     ui->setupUi(this);
-    this->centralWidget()->layout()->addWidget(new QRadioButton("Test Radio",this));
+    for (unsigned int i=0; i<10; i++){
+        this->centralWidget()->layout()->addWidget(new QRadioButton(QString("Test Radio ")+ QString(i),this));
+    }
+
 }
 
 PlayerDashboard::~PlayerDashboard()

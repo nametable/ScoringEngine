@@ -199,3 +199,9 @@ void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox::about(this, QString("About ScoringEngine"),QString(std::string("ScoringEngine\nCopyright " + std::to_string(VERSION_YEAR) + " by Logan Bateman\nVersion " + std::to_string(VERSION_MAJOR) + "." + std::to_string(VERSION_MINOR) + "." + std::to_string(VERSION_PATCH)).c_str()));
 }
+
+void MainWindow::on_actionPlayer_Dashboard_triggered()
+{
+    PlayerDashboard *dashboard= new PlayerDashboard(this,this->config);
+    dashboard->show();
+}
