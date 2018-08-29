@@ -26,7 +26,6 @@ void RunCommandScoreChecker::executeCommand()
     #ifdef _WIN32
     this->commandoutput=exec(this->command.c_str());
     #elif __linux__
-    //INSERT BOOST CODE HERE
     boost::process::ipstream output, whicherr, whichout;
     std::string output1;
     //Check from https://stackoverflow.com/questions/890894/portable-way-to-find-out-if-a-command-exists-c-c

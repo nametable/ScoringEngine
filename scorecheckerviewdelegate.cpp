@@ -179,9 +179,9 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
                      {
-                         QFileDialog opendialog(0, tr("Select File"));
+                         QFileDialog opendialog(nullptr, tr("Select File"));
 
-                         QString filename=opendialog.getOpenFileName(0,tr("Select Path"),model->data(index).toString());
+                         QString filename=opendialog.getOpenFileName(nullptr,tr("Select Path"),model->data(index).toString());
                          if (filename.length()>0)model->setData(index, filename);
                      }
                  }
