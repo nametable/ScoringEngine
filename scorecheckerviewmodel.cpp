@@ -538,8 +538,9 @@ Qt::ItemFlags  ScoreCheckerViewModel::flags(const QModelIndex &index) const //se
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     case COLUMN_OPT1:
         //return Qt::ItemIsSelectable;
-        if (typevalue==3)return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+        if (typevalue==CHECKER_RUN_SCRIPT)return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     case COLUMN_OPT2:
+        if (typevalue==CHECKER_QA)return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
         //return Qt::ItemIsSelectable;
     case COLUMN_SEARCH_STR:
 

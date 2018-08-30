@@ -24,9 +24,7 @@ QWidget * ScoreCheckerViewDelegate::createEditor(QWidget *parent, const QStyleOp
     switch(index.column())
     {
     case COLUMN_TYPE:
-        //checker[0]->
-        //break;
-        //if(index.data(Qt::DisplayRole)!="")break;
+
         combo->addItem(tr("Path Exist"));
         combo->addItem(tr("Command Output"));
         combo->addItem(tr("Value"));
@@ -37,10 +35,8 @@ QWidget * ScoreCheckerViewDelegate::createEditor(QWidget *parent, const QStyleOp
         return combo;
         break;
     case COLUMN_DESCRIPTION:
-        //break;
-        //return QItemDelegate::createEditor(parent,option,index);
-        //spinbox->setFrame(false);
-        return QStyledItemDelegate::createEditor(parent,option,index);
+        break;
+    case COLUMN_INSTRUCTIONS:
         break;
     case COLUMN_OPT1: //Opt1
         if (index.model()->data(index.sibling(index.row(),0), Qt::DisplayRole).toString()=="")break;
@@ -71,8 +67,7 @@ QWidget * ScoreCheckerViewDelegate::createEditor(QWidget *parent, const QStyleOp
     case COLUMN_FIXED:
         button->setText(tr("HI"));
         return button;
-    //default:
-
+        break;
     }
     return QStyledItemDelegate::createEditor(parent,option,index);
 }
@@ -90,6 +85,10 @@ void ScoreCheckerViewDelegate::setEditorData(QWidget *editor, const QModelIndex 
 
     QStyledItemDelegate::setEditorData(editor,index);
 }
+//
+//  Gets input from editors in the Qtable depending on which type of issue is edited.
+//  Changes settings through the model
+//
 void ScoreCheckerViewDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
                   const QModelIndex &index) const
 {
@@ -153,6 +152,7 @@ void ScoreCheckerViewDelegate::setModelData(QWidget *editor, QAbstractItemModel 
         break;
     }
 }
+//  Handles special user interaction for editing the configuration
 bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
      if( event->type() == QEvent::MouseButtonPress)
@@ -174,9 +174,9 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
                      }
                  }
                  break;
-             case CHECKER_VALUE:
-                 break;
              case CHECKER_RUN_COMMAND:
+                 break;
+             case CHECKER_VALUE:
                  {
                      QMouseEvent * e = (QMouseEvent *)event;
                      if (e->button()==Qt::RightButton)
@@ -224,6 +224,7 @@ bool ScoreCheckerViewDelegate::editorEvent(QEvent *event, QAbstractItemModel *mo
      }
      return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
+//  Properly sizes the widgets inside the cells
 void ScoreCheckerViewDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     editor->setGeometry(option.rect);
