@@ -31,7 +31,27 @@
      <number>0</number>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout"/>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <item>
+         <property name="text">
+          <string>Item1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Item2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Item3</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
