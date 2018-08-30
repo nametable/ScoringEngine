@@ -2,7 +2,7 @@
 
 PathExistScoreChecker::PathExistScoreChecker()
 {
-    this->filepath="/home/logan/";
+    this->filepath="/home/";
     this->points=1;
     this->desireExist=true;
     this->checkerType="PathExist";
