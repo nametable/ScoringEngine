@@ -10,6 +10,7 @@ BaseScoreChecker::BaseScoreChecker()
 {
     this->state=false;
     this->description="Base score checker";
+    this->instructions="Instructions/Question";
 }
 BaseScoreChecker::BaseScoreChecker(std::string description)
 {
